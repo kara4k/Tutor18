@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:layout_marginLeft="@dimen/dimen_default"
+                  android:layout_marginRight="@dimen/dimen_default"
+                  android:animateLayoutChanges="true"
+                  android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_default"
+            android:layout_marginRight="@dimen/dimen_default"
+            android:layout_marginTop="@dimen/dimen_default"
+            android:text="First Name:"
+            android:textColor="@android:color/black"/>
+
+        <EditText
+            android:id="@+id/first_name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_default"
+            android:layout_marginRight="@dimen/dimen_default"
+            android:text="Путин"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_default"
+            android:layout_marginRight="@dimen/dimen_default"
+            android:layout_marginTop="@dimen/dimen_default"
+            android:text="Name:"
+            android:textColor="@android:color/black"/>
+
+        <EditText
+            android:id="@+id/name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_default"
+            android:layout_marginRight="@dimen/dimen_default"
+            android:text="Владимир"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_default"
+            android:layout_marginRight="@dimen/dimen_default"
+            android:layout_marginTop="@dimen/dimen_default"
+            android:text="Grade:"
+            android:textColor="@android:color/black"/>
+
+        <EditText
+            android:id="@+id/grade_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_marginLeft="@dimen/dimen_default"
+            android:layout_marginRight="@dimen/dimen_default"
+            android:text="11"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_default"
+            android:layout_marginRight="@dimen/dimen_default"
+            android:layout_marginTop="@dimen/dimen_default"
+            android:text="Phone:"
+            android:textColor="@android:color/black"/>
+
+        <EditText
+            android:id="@+id/phone_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_default"
+            android:layout_marginRight="@dimen/dimen_default"
+            android:text="+375 29 5846835"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_default"
+            android:layout_marginRight="@dimen/dimen_default"
+            android:layout_marginTop="@dimen/dimen_default"
+            android:text="Note:"
+            android:textColor="@android:color/black"/>
+
+        <EditText
+            android:id="@+id/note_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_default"
+            android:layout_marginRight="@dimen/dimen_default"
+            android:text="Мега мэн!"
+            />
+
+        <com.kara4k.tutor18.view.custom.ItemView
+            android:id="@+id/add_lesson_item_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_default"
+            app:icon_src="@drawable/ic_add_black_24dp"
+            app:icon_visibility="true"
+            app:summary_text="Press to add"
+            app:title_text="Lessons:"/>
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/dimen_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+

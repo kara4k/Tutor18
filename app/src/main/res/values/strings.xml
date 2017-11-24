@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Tutor18</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="menu_item_edit">Edit</string>
+    <string name="item_view_grade">Grade:</string>
+    <string name="item_view_phone">Phone:</string>
+    <string name="item_view_note">Note:</string>
+    <string name="menu_item_save">Save</string>
+    <string name="menu_item_delete">Delete</string>
+</resources>

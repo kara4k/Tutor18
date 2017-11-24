@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:paddingLeft="@dimen/dimen_default"
+                  android:paddingRight="@dimen/dimen_default">
+
+        <com.kara4k.tutor18.view.custom.ItemView
+            android:id="@+id/name_item_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon_src="@drawable/ic_person_black_24dp"
+            app:icon_visibility="true"
+            app:summary_text="Владимир"
+            app:title_text="Путин"/>
+
+        <com.kara4k.tutor18.view.custom.ItemView
+            android:id="@+id/grade_item_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon_src="@drawable/ic_account_balance_black_24dp"
+            app:icon_visibility="true"
+            app:summary_text="11"
+            app:title_text="@string/item_view_grade"/>
+
+        <com.kara4k.tutor18.view.custom.ItemView
+            android:id="@+id/phone_item_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon_src="@drawable/ic_call_black_24dp"
+            app:icon_visibility="true"
+            app:summary_text="+375 33 3718236"
+            app:title_text="@string/item_view_phone"/>
+
+        <com.kara4k.tutor18.view.custom.ItemView
+            android:id="@+id/note_item_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon_src="@drawable/ic_note_black_24dp"
+            app:icon_visibility="true"
+            app:summary_text="Серьезный"
+            app:title_text="@string/item_view_note"/>
+
+        <View
+            style="@style/Divider"/>
+
+
+    </LinearLayout>
+</ScrollView>
