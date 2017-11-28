@@ -7,6 +7,7 @@ import android.content.Intent;
 import com.kara4k.tutor18.R;
 import com.kara4k.tutor18.di.DaggerViewComponent;
 import com.kara4k.tutor18.di.modules.ViewModule;
+import com.kara4k.tutor18.model.Lesson;
 import com.kara4k.tutor18.model.Person;
 import com.kara4k.tutor18.presenter.PersonPresenter;
 import com.kara4k.tutor18.view.PersonViewIF;
@@ -88,6 +89,10 @@ public class PersonActivity extends BaseActivity implements PersonViewIF {
         mPresenter.onDeletePerson(person);
     }
 
+    public void onDeleteLesson(long id) {
+        mPresenter.onDeleteLesson(id);
+    }
+
     @Override
     public void closeView() {
         finish();
@@ -104,5 +109,9 @@ public class PersonActivity extends BaseActivity implements PersonViewIF {
         Intent intent = new Intent(context, PersonActivity.class);
         intent.putExtra(MODE, MODE_NEW);
         return intent;
+    }
+
+    public void onSavePerson(Lesson lesson, Person person) {
+        mPresenter.onSavePerson(lesson, person);
     }
 }

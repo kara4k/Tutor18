@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,7 @@ public class PersonDetailsFragment extends BaseFragment {
 
     public static final String PERSON = "person";
     private static final int NEW_LESSON = 1;
+    private static final int EDIT_LESSON = 2;
 
     @BindView(R.id.name_item_view)
     ItemView mNameItemView;
@@ -66,7 +68,8 @@ public class PersonDetailsFragment extends BaseFragment {
 
         mLessons = mPerson.getLessons();
         for (int i = 0; i < mLessons.size(); i++) {
-            addLessonView(mLessons.get(i));
+            ItemView lessonView = createLessonView(mLessons.get(i));
+            mLessonsLayout.addView(lessonView);
         }
     }
 
@@ -81,7 +84,7 @@ public class PersonDetailsFragment extends BaseFragment {
                 ((PersonActivity) getActivity()).onEditPerson(mPerson);
                 return true;
             case R.id.menu_item_delete:
-                String title = getString(R.string.delete_dialog_person_title);
+                String title = getString(R.string.delete_dialog_title);
                 String text = getString(R.string.dialog_delete_person_text);
                 DialogInterface.OnClickListener listener = (d, i) ->
                         ((PersonActivity) getActivity()).onDeletePerson(mPerson);
@@ -96,26 +99,54 @@ public class PersonDetailsFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
+            Lesson lesson = (Lesson) data.getSerializableExtra(LessonActivity.LESSON);
+            if (lesson == null) return;
             switch (requestCode) {
                 case NEW_LESSON:
-                    Lesson lesson = (Lesson) data.getSerializableExtra(LessonActivity.LESSON);
-                    if (lesson == null) return;
                     mPerson.addLesson(lesson);
-                    ((PersonActivity) getActivity()).onSavePerson(mPerson);
                     break;
+                case EDIT_LESSON:
+                    mPerson.replaceLesson(lesson);
+                    break;
+            }
+            ((PersonActivity) getActivity()).onSavePerson(lesson, mPerson);
+        }
+    }
+
+    @NonNull
+    private ItemView createLessonView(Lesson lesson) {
+        ItemView itemView = new ItemView(getContext());
+
+        itemView.setUuid(lesson.getId());
+        itemView.setTitle(FormatUtils.getSortedDays()[lesson.getDayOfWeek()]);
+        itemView.setSummary(FormatUtils.getLessonSummary(lesson));
+        itemView.setIconVisibility(View.VISIBLE);
+        itemView.setIconImageResource(R.drawable.ic_remove_black_24dp);
+
+        String title = getString(R.string.delete_dialog_title);
+        String message = getString(R.string.dialog_lesson_delete_message);
+        DialogInterface.OnClickListener onOkListener = (di, i) -> removeLesson(itemView);
+
+        itemView.setOnIconClickListener((view) -> showDialog(title, message, onOkListener));
+        itemView.setClickListener(() -> editLesson(itemView));
+
+        return itemView;
+    }
+
+    private void editLesson(ItemView itemView) {
+        for (Lesson lesson : mLessons) {
+            if (lesson.getId() == itemView.getUuid()) {
+                Intent intent = LessonActivity.newIntent(getContext(), lesson);
+                startActivityForResult(intent, EDIT_LESSON);
+                break;
             }
         }
     }
 
-    private void addLessonView(Lesson lesson) {
-
-        ItemView itemView = new ItemView(getContext());
-        itemView.setTitle(FormatUtils.getSortedDays()[lesson.getDayOfWeek()]);
-        itemView.setSummary(String.valueOf(lesson.getDuration()));
-        itemView.setIconVisibility(View.VISIBLE);
-        itemView.setIconImageResource(R.drawable.ic_remove_black_24dp);
-
-        mLessonsLayout.addView(itemView);
+    private void removeLesson(ItemView itemView) {
+        mPerson.removeLesson(itemView.getUuid());
+        mLessonsLayout.removeView(itemView);
+        ((PersonActivity) getActivity()).onDeleteLesson(itemView.getUuid());
     }
 
     public static PersonDetailsFragment newInstance(Person person) {

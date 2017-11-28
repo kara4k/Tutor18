@@ -1,6 +1,8 @@
 package com.kara4k.tutor18.other;
 
 
+import com.kara4k.tutor18.model.Lesson;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DateFormatSymbols;
@@ -43,6 +45,23 @@ public class FormatUtils {
         return new BigDecimal(value)
                 .setScale(2, RoundingMode.CEILING)
                 .toPlainString();
+    }
+
+    public static String getLessonSummary(Lesson lesson) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, lesson.getStartHour());
+        calendar.set(Calendar.MINUTE, lesson.getStartMin());
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.add(Calendar.MINUTE, lesson.getDuration());
+
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        String start = formatTime(lesson.getStartHour(), lesson.getStartMin());
+        String end = formatTime(hour,minute);
+
+        return String.format("%s - %s", start, end);
     }
 
     private static void fillFromMonday(String[] dayNames, String[] sortedDays) {

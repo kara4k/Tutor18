@@ -28,16 +28,21 @@ public class Person implements Serializable {
     @OrderBy("dayOfWeek ASC")
     List<Lesson> lessons;
 
-    /** Used to resolve relations */
+    /**
+     * Used to resolve relations
+     */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    /** Used for active entity operations. */
+    /**
+     * Used for active entity operations.
+     */
     @Generated(hash = 778611619)
     private transient PersonDao myDao;
+
     @Generated(hash = 1804966946)
     public Person(Long id, String firstName, String name, String grade,
-            String phone, String note) {
+                  String phone, String note) {
         this.id = id;
         this.firstName = firstName;
         this.name = name;
@@ -45,54 +50,85 @@ public class Person implements Serializable {
         this.phone = phone;
         this.note = note;
     }
+
     @Generated(hash = 1024547259)
     public Person() {
     }
+
     public Long getId() {
         return this.id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getFirstName() {
         return this.firstName;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
     public String getName() {
         return this.name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getGrade() {
         return this.grade;
     }
+
     public void setGrade(String grade) {
         this.grade = grade;
     }
+
     public String getPhone() {
         return this.phone;
     }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
     public String getNote() {
         return this.note;
     }
+
     public void setNote(String note) {
         this.note = note;
     }
+
     public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
     }
-    public void addLesson(Lesson lesson){
+
+    public void addLesson(Lesson lesson) {
         lesson.setPersonId(id);
         lessons.add(lesson);
     }
 
+    public void replaceLesson(Lesson lesson) {
+        for (int i = 0; i < lessons.size(); i++) {
+            if (lessons.get(i).getId().equals(lesson.getId())) {
+                lessons.set(i, lesson);
+                break;
+            }
+        }
+    }
 
+    public void removeLesson(long id) {
+        for (int i = 0; i < lessons.size(); i++) {
+            if (lessons.get(i).getId().equals(id)) {
+                lessons.remove(i);
+                break;
+            }
+        }
+    }
 
     /**
      * To-many relationship, resolved on first access (and after reset).
@@ -115,11 +151,15 @@ public class Person implements Serializable {
         }
         return lessons;
     }
-    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+
+    /**
+     * Resets a to-many relationship, making the next get call to query for a fresh result.
+     */
     @Generated(hash = 1769801440)
     public synchronized void resetLessons() {
         lessons = null;
     }
+
     /**
      * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
      * Entity must attached to an entity context.
@@ -131,6 +171,7 @@ public class Person implements Serializable {
         }
         myDao.delete(this);
     }
+
     /**
      * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
      * Entity must attached to an entity context.
@@ -142,6 +183,7 @@ public class Person implements Serializable {
         }
         myDao.refresh(this);
     }
+
     /**
      * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
      * Entity must attached to an entity context.
@@ -153,14 +195,15 @@ public class Person implements Serializable {
         }
         myDao.update(this);
     }
-    /** called by internal mechanisms, do not call yourself. */
+
+    /**
+     * called by internal mechanisms, do not call yourself.
+     */
     @Generated(hash = 2056799268)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getPersonDao() : null;
     }
-
-   
 
 
 }

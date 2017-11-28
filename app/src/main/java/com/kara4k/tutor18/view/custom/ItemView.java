@@ -24,6 +24,7 @@ public class ItemView extends RelativeLayout implements View.OnClickListener {
     private ImageView mPhotoImageView;
     private ClickListener mClickListener;
 
+    private long uuid;
     private String mTitleText;
     private String mSummaryText;
     private boolean mIsCheckBoxVisible;
@@ -132,6 +133,14 @@ public class ItemView extends RelativeLayout implements View.OnClickListener {
         }
     }
 
+    public long getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(long uuid) {
+        this.uuid = uuid;
+    }
+
     public TextView getSummaryTextView() {
         return mSummaryTextView;
     }
@@ -146,6 +155,10 @@ public class ItemView extends RelativeLayout implements View.OnClickListener {
 
     public void setIconImageResource(int id) {
         mIconImageView.setImageResource(id);
+    }
+
+    public void setOnIconClickListener(View.OnClickListener listener) {
+        mIconImageView.setOnClickListener(listener);
     }
 
     public ImageView getPhotoImageView() {

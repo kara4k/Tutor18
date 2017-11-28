@@ -1,7 +1,10 @@
 package com.kara4k.tutor18.presenter;
 
 
+import android.util.Log;
+
 import com.kara4k.tutor18.model.DaoSession;
+import com.kara4k.tutor18.model.Lesson;
 import com.kara4k.tutor18.model.LessonDao;
 import com.kara4k.tutor18.model.Person;
 import com.kara4k.tutor18.model.PersonDao;
@@ -23,6 +26,10 @@ public class PersonPresenter implements PresenterIF {
         mLessonDao = daoSession.getLessonDao();
     }
 
+    public void onCreateNewPerson() {
+        mView.showPersonCreator();
+    }
+
     public void onShowPersonDetails(long id) {
         mView.showPersonDetails(queryPerson(id));
     }
@@ -33,6 +40,13 @@ public class PersonPresenter implements PresenterIF {
 
     public void onSavePerson(Person person) {
         mPersonDao.insertOrReplace(person); // TODO: 24.11.2017 rx
+        mView.showPersonDetails(person);
+    }
+
+    public void onSavePerson(Lesson lesson, Person person) {
+        lesson.setPersonId(person.getId());
+        mLessonDao.insertOrReplace(lesson);
+        mPersonDao.insertOrReplace(person);
         mView.showPersonDetails(person);
     }
 
@@ -47,8 +61,9 @@ public class PersonPresenter implements PresenterIF {
                 .build().unique();
     }
 
-    public void onCreateNewPerson() {
-        mView.showPersonCreator();
+    public void onDeleteLesson(long id) {
+        Log.e("PersonPresenter", "onDeleteLesson: " + id);
+        mLessonDao.deleteByKey(id);
     }
 
     @Override

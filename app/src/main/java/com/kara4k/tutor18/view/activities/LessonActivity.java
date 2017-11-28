@@ -129,7 +129,8 @@ public class LessonActivity extends BaseActivity {
         finish();
     }
 
-    private void showItemsDialog(String title, CharSequence[] items, DialogInterface.OnClickListener listener) {
+    private void showItemsDialog(String title, CharSequence[] items,
+                                 DialogInterface.OnClickListener listener) {
         new AlertDialog.Builder(this)
                 .setTitle(title)
                 .setItems(items, listener)
