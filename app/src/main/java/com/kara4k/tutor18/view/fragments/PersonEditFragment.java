@@ -1,27 +1,21 @@
 package com.kara4k.tutor18.view.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import com.kara4k.tutor18.R;
 import com.kara4k.tutor18.model.Person;
-import com.kara4k.tutor18.view.activities.LessonActivity;
 import com.kara4k.tutor18.view.activities.PersonActivity;
-import com.kara4k.tutor18.view.custom.ItemView;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class PersonEditFragment extends BaseFragment {
 
     public static final String PERSON = "person";
-    private static final int NEW_LESSON = 1;
 
     @BindView(R.id.first_name_edit_text)
     EditText mFirstNameEditText;
@@ -33,10 +27,6 @@ public class PersonEditFragment extends BaseFragment {
     EditText mPhoneEditText;
     @BindView(R.id.note_edit_text)
     EditText mNoteEditText;
-    @BindView(R.id.add_lesson_item_view)
-    ItemView mAddLessonItemView;
-    @BindView(R.id.layout)
-    LinearLayout mLessonsLayout;
 
     private Person mPerson;
 
@@ -61,6 +51,7 @@ public class PersonEditFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (mPerson == null) return;
+
         mFirstNameEditText.setText(mPerson.getFirstName());
         mNameEditText.setText(mPerson.getName());
         mGradeEditText.setText(mPerson.getGrade());
@@ -85,12 +76,6 @@ public class PersonEditFragment extends BaseFragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @OnClick(R.id.add_lesson_item_view)
-    void onAddLesson() {
-        Intent intent = LessonActivity.newIntent(getContext());
-        startActivityForResult(intent, NEW_LESSON);
     }
 
     public static PersonEditFragment newInstance(Person person) {

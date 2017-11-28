@@ -2,10 +2,9 @@
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:layout_width="match_parent"
@@ -104,24 +103,6 @@
             android:layout_marginRight="@dimen/dimen_default"
             />
 
-        <com.kara4k.tutor18.view.custom.ItemView
-            android:id="@+id/add_lesson_item_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_default"
-            app:icon_src="@drawable/ic_add_black_24dp"
-            app:icon_visibility="true"
-            app:summary_text="Press to add"
-            app:title_text="Lessons:"/>
-
-        <LinearLayout
-            android:id="@+id/layout"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/dimen_default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </LinearLayout>
     </LinearLayout>
 </ScrollView>
 

@@ -44,7 +44,7 @@ public abstract class BaseFragment extends Fragment {
     protected void showDialog(String title, String text, DialogInterface.OnClickListener okListener) {
         new AlertDialog.Builder(getContext())
                 .setTitle(title)
-                .setTitle(text)
+                .setMessage(text)
                 .setPositiveButton(android.R.string.ok, okListener)
                 .setNegativeButton(android.R.string.cancel, null)
                 .create().show();

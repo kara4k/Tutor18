@@ -16,4 +16,5 @@
     <string name="lesson_dialog_day_title">Day:</string>
     <string name="dialog_lesson_duration_title">Duration (min):</string>
     <string name="dialog_lesson_price_title">Price:</string>
+    <string name="menu_item_add_lesson">Add lesson</string>
 </resources>

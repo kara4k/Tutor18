@@ -2,8 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/menu_item_add_lesson"
+        android:icon="@drawable/ic_add_white_24dp"
+        android:title="@string/menu_item_add_lesson"
+        app:showAsAction="always"/>
+    <item
         android:id="@+id/menu_item_edit"
-        android:icon="@drawable/ic_border_color_white_24dp"
+        android:icon="@drawable/ic_mode_edit_white_24dp"
         android:title="@string/menu_item_edit"
         app:showAsAction="always"/>
     <item

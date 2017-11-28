@@ -1,6 +1,7 @@
 package com.kara4k.tutor18.view.activities;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -16,14 +17,13 @@ import com.kara4k.tutor18.other.FormatUtils;
 import com.kara4k.tutor18.view.custom.ItemView;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class LessonActivity extends BaseActivity {
 
-    private static final String LESSON = "lesson";
+    public static final String LESSON = "lesson";
 
     @BindView(R.id.day_item_view)
     ItemView mDayItemView;
@@ -46,16 +46,18 @@ public class LessonActivity extends BaseActivity {
     @Override
     protected void onViewReady() {
         mLesson = (Lesson) getIntent().getSerializableExtra(LESSON);
-        if (mLesson == null) {
-            mLesson = new Lesson();
-        } else {
-            String time = FormatUtils.formatTime(mLesson.getStartHour(), mLesson.getStartMin());
 
-            mDayItemView.setSummary(String.valueOf(mLesson.getDayOfWeek()));
-            mStartItemView.setSummary(time);
-            mDurationItemView.setSummary(String.valueOf(mLesson.getDuration()));
-            mPriceItemView.setSummary(String.valueOf(mLesson.getPrice()));
-        }
+        if (mLesson == null) mLesson = new Lesson();
+
+        String day = FormatUtils.getSortedDays()[mLesson.getDayOfWeek()];
+        String time = FormatUtils.formatTime(mLesson.getStartHour(), mLesson.getStartMin());
+        String duration = String.valueOf(mLesson.getDuration());
+        String price = FormatUtils.formatPrice(mLesson.getPrice());
+
+        mDayItemView.setSummary(day);
+        mStartItemView.setSummary(time);
+        mDurationItemView.setSummary(duration);
+        mPriceItemView.setSummary(price);
     }
 
     @OnClick(R.id.day_item_view)
@@ -72,7 +74,8 @@ public class LessonActivity extends BaseActivity {
 
     @OnClick(R.id.start_item_view)
     void onStartClick(View view) {
-        Calendar calendar = Calendar.getInstance();
+        int startHour = mLesson.getStartHour();
+        int startMin = mLesson.getStartMin();
         TimePickerDialog.OnTimeSetListener listener = (tp, h, m) -> {
             mLesson.setStartHour(h);
             mLesson.setStartMin(m);
@@ -80,7 +83,7 @@ public class LessonActivity extends BaseActivity {
         };
 
         new TimePickerDialog(this, R.style.TimePickerStyle
-                , listener, mLesson.getStartHour(), mLesson.getStartMin(), true)
+                , listener, startHour, startMin, true)
                 .show();
     }
 
@@ -113,8 +116,17 @@ public class LessonActivity extends BaseActivity {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.dialog_lesson_price_title)
                 .setPositiveButton(android.R.string.ok, listener)
+                .setNegativeButton(android.R.string.cancel, null)
                 .setView(dialogView)
                 .create().show();
+    }
+
+    @OnClick(R.id.fab)
+    public void onFabClick(){
+        Intent intent = new Intent();
+        intent.putExtra(LESSON, mLesson);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 
     private void showItemsDialog(String title, CharSequence[] items, DialogInterface.OnClickListener listener) {

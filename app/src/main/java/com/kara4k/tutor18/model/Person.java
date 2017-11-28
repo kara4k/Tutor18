@@ -1,15 +1,15 @@
 package com.kara4k.tutor18.model;
 
 
+import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.OrderBy;
 import org.greenrobot.greendao.annotation.ToMany;
 
 import java.io.Serializable;
 import java.util.List;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.DaoException;
 
 
 @Entity(active = true, nameInDb = "persons")
@@ -84,6 +84,16 @@ public class Person implements Serializable {
     public void setNote(String note) {
         this.note = note;
     }
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
+    }
+    public void addLesson(Lesson lesson){
+        lesson.setPersonId(id);
+        lessons.add(lesson);
+    }
+
+
+
     /**
      * To-many relationship, resolved on first access (and after reset).
      * Changes to to-many relations are not persisted, make changes to the target entity.
