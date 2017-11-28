@@ -28,9 +28,10 @@ public class LessonDao extends AbstractDao<Lesson, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property PersonId = new Property(1, Long.class, "personId", false, "PERSON_ID");
         public final static Property DayOfWeek = new Property(2, int.class, "dayOfWeek", false, "DAY_OF_WEEK");
-        public final static Property Start = new Property(3, long.class, "start", false, "START");
-        public final static Property Duration = new Property(4, int.class, "duration", false, "DURATION");
-        public final static Property Cost = new Property(5, int.class, "cost", false, "COST");
+        public final static Property StartHour = new Property(3, int.class, "startHour", false, "START_HOUR");
+        public final static Property StartMin = new Property(4, int.class, "startMin", false, "START_MIN");
+        public final static Property Duration = new Property(5, int.class, "duration", false, "DURATION");
+        public final static Property Price = new Property(6, double.class, "price", false, "PRICE");
     }
 
     private DaoSession daoSession;
@@ -53,9 +54,10 @@ public class LessonDao extends AbstractDao<Lesson, Long> {
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"PERSON_ID\" INTEGER," + // 1: personId
                 "\"DAY_OF_WEEK\" INTEGER NOT NULL ," + // 2: dayOfWeek
-                "\"START\" INTEGER NOT NULL ," + // 3: start
-                "\"DURATION\" INTEGER NOT NULL ," + // 4: duration
-                "\"COST\" INTEGER NOT NULL );"); // 5: cost
+                "\"START_HOUR\" INTEGER NOT NULL ," + // 3: startHour
+                "\"START_MIN\" INTEGER NOT NULL ," + // 4: startMin
+                "\"DURATION\" INTEGER NOT NULL ," + // 5: duration
+                "\"PRICE\" REAL NOT NULL );"); // 6: price
     }
 
     /** Drops the underlying database table. */
@@ -78,9 +80,10 @@ public class LessonDao extends AbstractDao<Lesson, Long> {
             stmt.bindLong(2, personId);
         }
         stmt.bindLong(3, entity.getDayOfWeek());
-        stmt.bindLong(4, entity.getStart());
-        stmt.bindLong(5, entity.getDuration());
-        stmt.bindLong(6, entity.getCost());
+        stmt.bindLong(4, entity.getStartHour());
+        stmt.bindLong(5, entity.getStartMin());
+        stmt.bindLong(6, entity.getDuration());
+        stmt.bindDouble(7, entity.getPrice());
     }
 
     @Override
@@ -97,9 +100,10 @@ public class LessonDao extends AbstractDao<Lesson, Long> {
             stmt.bindLong(2, personId);
         }
         stmt.bindLong(3, entity.getDayOfWeek());
-        stmt.bindLong(4, entity.getStart());
-        stmt.bindLong(5, entity.getDuration());
-        stmt.bindLong(6, entity.getCost());
+        stmt.bindLong(4, entity.getStartHour());
+        stmt.bindLong(5, entity.getStartMin());
+        stmt.bindLong(6, entity.getDuration());
+        stmt.bindDouble(7, entity.getPrice());
     }
 
     @Override
@@ -119,9 +123,10 @@ public class LessonDao extends AbstractDao<Lesson, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // personId
             cursor.getInt(offset + 2), // dayOfWeek
-            cursor.getLong(offset + 3), // start
-            cursor.getInt(offset + 4), // duration
-            cursor.getInt(offset + 5) // cost
+            cursor.getInt(offset + 3), // startHour
+            cursor.getInt(offset + 4), // startMin
+            cursor.getInt(offset + 5), // duration
+            cursor.getDouble(offset + 6) // price
         );
         return entity;
     }
@@ -131,9 +136,10 @@ public class LessonDao extends AbstractDao<Lesson, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setPersonId(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
         entity.setDayOfWeek(cursor.getInt(offset + 2));
-        entity.setStart(cursor.getLong(offset + 3));
-        entity.setDuration(cursor.getInt(offset + 4));
-        entity.setCost(cursor.getInt(offset + 5));
+        entity.setStartHour(cursor.getInt(offset + 3));
+        entity.setStartMin(cursor.getInt(offset + 4));
+        entity.setDuration(cursor.getInt(offset + 5));
+        entity.setPrice(cursor.getDouble(offset + 6));
      }
     
     @Override

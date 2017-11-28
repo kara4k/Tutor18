@@ -1,9 +1,9 @@
 package com.kara4k.tutor18.model;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 
 import java.io.Serializable;
 
@@ -16,24 +16,28 @@ public class Lesson implements Serializable{
     Long id;
     Long personId;
     int dayOfWeek;
-    long start;
+    int startHour;
+    int startMin;
     int duration;
-    int cost;
+    double price;
+
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
+
     /** Used for active entity operations. */
     @Generated(hash = 610143130)
     private transient LessonDao myDao;
-    @Generated(hash = 552172752)
-    public Lesson(Long id, Long personId, int dayOfWeek, long start, int duration,
-            int cost) {
+    @Generated(hash = 934759525)
+    public Lesson(Long id, Long personId, int dayOfWeek, int startHour,
+            int startMin, int duration, double price) {
         this.id = id;
         this.personId = personId;
         this.dayOfWeek = dayOfWeek;
-        this.start = start;
+        this.startHour = startHour;
+        this.startMin = startMin;
         this.duration = duration;
-        this.cost = cost;
+        this.price = price;
     }
     @Generated(hash = 1669664117)
     public Lesson() {
@@ -56,11 +60,17 @@ public class Lesson implements Serializable{
     public void setDayOfWeek(int dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
-    public long getStart() {
-        return this.start;
+    public int getStartHour() {
+        return this.startHour;
     }
-    public void setStart(long start) {
-        this.start = start;
+    public void setStartHour(int startHour) {
+        this.startHour = startHour;
+    }
+    public int getStartMin() {
+        return this.startMin;
+    }
+    public void setStartMin(int startMin) {
+        this.startMin = startMin;
     }
     public int getDuration() {
         return this.duration;
@@ -68,11 +78,11 @@ public class Lesson implements Serializable{
     public void setDuration(int duration) {
         this.duration = duration;
     }
-    public int getCost() {
-        return this.cost;
+    public double getPrice() {
+        return this.price;
     }
-    public void setCost(int cost) {
-        this.cost = cost;
+    public void setPrice(double price) {
+        this.price = price;
     }
     /**
      * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
@@ -113,4 +123,6 @@ public class Lesson implements Serializable{
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getLessonDao() : null;
     }
+
+
 }

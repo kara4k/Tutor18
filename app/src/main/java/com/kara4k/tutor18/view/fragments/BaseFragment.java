@@ -1,6 +1,8 @@
 package com.kara4k.tutor18.view.fragments;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +24,7 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        setRetainInstance(true);
     }
 
     @Nullable
@@ -36,5 +39,14 @@ public abstract class BaseFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(getMenuRes(), menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    protected void showDialog(String title, String text, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(getContext())
+                .setTitle(title)
+                .setTitle(text)
+                .setPositiveButton(android.R.string.ok, okListener)
+                .setNegativeButton(android.R.string.cancel, null)
+                .create().show();
     }
 }

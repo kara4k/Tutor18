@@ -25,7 +25,7 @@ public class PersonDao extends AbstractDao<Person, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property FirstName = new Property(1, String.class, "firstName", false, "FIRST_NAME");
         public final static Property Name = new Property(2, String.class, "name", false, "NAME");
-        public final static Property Grade = new Property(3, int.class, "grade", false, "GRADE");
+        public final static Property Grade = new Property(3, String.class, "grade", false, "GRADE");
         public final static Property Phone = new Property(4, String.class, "phone", false, "PHONE");
         public final static Property Note = new Property(5, String.class, "note", false, "NOTE");
     }
@@ -49,7 +49,7 @@ public class PersonDao extends AbstractDao<Person, Long> {
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"FIRST_NAME\" TEXT," + // 1: firstName
                 "\"NAME\" TEXT," + // 2: name
-                "\"GRADE\" INTEGER NOT NULL ," + // 3: grade
+                "\"GRADE\" TEXT," + // 3: grade
                 "\"PHONE\" TEXT," + // 4: phone
                 "\"NOTE\" TEXT);"); // 5: note
     }
@@ -78,7 +78,11 @@ public class PersonDao extends AbstractDao<Person, Long> {
         if (name != null) {
             stmt.bindString(3, name);
         }
-        stmt.bindLong(4, entity.getGrade());
+ 
+        String grade = entity.getGrade();
+        if (grade != null) {
+            stmt.bindString(4, grade);
+        }
  
         String phone = entity.getPhone();
         if (phone != null) {
@@ -109,7 +113,11 @@ public class PersonDao extends AbstractDao<Person, Long> {
         if (name != null) {
             stmt.bindString(3, name);
         }
-        stmt.bindLong(4, entity.getGrade());
+ 
+        String grade = entity.getGrade();
+        if (grade != null) {
+            stmt.bindString(4, grade);
+        }
  
         String phone = entity.getPhone();
         if (phone != null) {
@@ -139,7 +147,7 @@ public class PersonDao extends AbstractDao<Person, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // firstName
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // name
-            cursor.getInt(offset + 3), // grade
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // grade
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // phone
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // note
         );
@@ -151,7 +159,7 @@ public class PersonDao extends AbstractDao<Person, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setFirstName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setGrade(cursor.getInt(offset + 3));
+        entity.setGrade(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setPhone(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setNote(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
      }

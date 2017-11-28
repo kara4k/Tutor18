@@ -11,4 +11,9 @@
     <string name="item_view_note">Note:</string>
     <string name="menu_item_save">Save</string>
     <string name="menu_item_delete">Delete</string>
+    <string name="dialog_delete_person_text">Are you sure to delete current person?</string>
+    <string name="delete_dialog_person_title">Delete</string>
+    <string name="lesson_dialog_day_title">Day:</string>
+    <string name="dialog_lesson_duration_title">Duration (min):</string>
+    <string name="dialog_lesson_price_title">Price:</string>
 </resources>

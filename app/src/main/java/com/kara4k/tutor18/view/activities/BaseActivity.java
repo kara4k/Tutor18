@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.inputmethod.InputMethodManager;
 
 import com.kara4k.tutor18.R;
 import com.kara4k.tutor18.di.AppComponent;
@@ -35,6 +36,19 @@ public abstract class BaseActivity extends AppCompatActivity {
             sfm.beginTransaction().add(container, fragment).commit();
         } else {
             sfm.beginTransaction().replace(container, fragment).commit();
+        }
+    }
+
+    protected void hideSoftKeyboard() {
+        try {
+            if (getCurrentFocus() != null) {
+                InputMethodManager inputMethodManager = (InputMethodManager) getApplicationContext()
+                        .getSystemService(INPUT_METHOD_SERVICE);
+                inputMethodManager
+                        .hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

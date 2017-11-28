@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_default"
             android:layout_marginRight="@dimen/dimen_default"
-            android:text="Путин"
             />
 
 
@@ -49,7 +48,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_default"
             android:layout_marginRight="@dimen/dimen_default"
-            android:text="Владимир"
             />
 
 
@@ -66,10 +64,8 @@
             android:id="@+id/grade_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
             android:layout_marginLeft="@dimen/dimen_default"
             android:layout_marginRight="@dimen/dimen_default"
-            android:text="11"
             />
 
 
@@ -88,7 +84,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_default"
             android:layout_marginRight="@dimen/dimen_default"
-            android:text="+375 29 5846835"
             />
 
 
@@ -107,7 +102,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_default"
             android:layout_marginRight="@dimen/dimen_default"
-            android:text="Мега мэн!"
             />
 
         <com.kara4k.tutor18.view.custom.ItemView

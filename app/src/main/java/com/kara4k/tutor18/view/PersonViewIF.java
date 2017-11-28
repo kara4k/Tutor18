@@ -10,4 +10,6 @@ public interface PersonViewIF extends ViewIF {
     void showPersonEdits(Person person);
 
     void showPersonCreator();
+
+    void closeView();
 }

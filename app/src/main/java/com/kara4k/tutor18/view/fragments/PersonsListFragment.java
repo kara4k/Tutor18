@@ -1,11 +1,7 @@
 package com.kara4k.tutor18.view.fragments;
 
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.View;
 
 import com.kara4k.tutor18.R;
 import com.kara4k.tutor18.di.DaggerViewComponent;
@@ -25,9 +21,6 @@ import butterknife.OnClick;
 
 public class PersonsListFragment extends BaseListFragment implements PersonsListViewIF {
 
-    public static final int NEW_PERSON = 1;
-    public static final int SHOW_DETAILS = 2;
-
     @Inject
     PersonsListPresenter mPresenter;
 
@@ -42,16 +35,9 @@ public class PersonsListFragment extends BaseListFragment implements PersonsList
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onStart() {
+        super.onStart();
         mPresenter.onStart();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            mPresenter.onStart();
-        }
     }
 
     @Override
@@ -71,7 +57,7 @@ public class PersonsListFragment extends BaseListFragment implements PersonsList
 
     @OnClick(R.id.fab)
     void onFabClicked() {
-        startActivityForResult(PersonActivity.newIntent(getContext()), NEW_PERSON);
+        startActivity(PersonActivity.newIntent(getContext()));
     }
 
     @Override
@@ -80,6 +66,6 @@ public class PersonsListFragment extends BaseListFragment implements PersonsList
         int mode = PersonActivity.MODE_SHOW;
         Intent intent = PersonActivity.newIntent(getContext(), id, mode);
 
-        startActivityForResult(intent, SHOW_DETAILS);
+        startActivity(intent);
     }
 }

@@ -36,6 +36,11 @@ public class PersonPresenter implements PresenterIF {
         mView.showPersonDetails(person);
     }
 
+    public void onDeletePerson(Person person) {
+        mPersonDao.delete(person);
+        mView.closeView();
+    }
+
     private Person queryPerson(long id) {
         return mPersonDao.queryBuilder()
                 .where(PersonDao.Properties.Id.eq(id))

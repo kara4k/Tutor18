@@ -62,6 +62,7 @@ public class PersonActivity extends BaseActivity implements PersonViewIF {
 
     @Override
     public void showPersonDetails(Person person) {
+        hideSoftKeyboard();
         setFragment(PersonDetailsFragment.newInstance(person));
     }
 
@@ -75,8 +76,21 @@ public class PersonActivity extends BaseActivity implements PersonViewIF {
         setFragment(PersonEditFragment.newInstance());
     }
 
-    public void onSavePressed(Person person) {
+    public void onSavePerson(Person person) {
         mPresenter.onSavePerson(person);
+    }
+
+    public void onEditPerson(Person person) {
+        setFragment(PersonEditFragment.newInstance(person));
+    }
+
+    public void onDeletePerson(Person person) {
+        mPresenter.onDeletePerson(person);
+    }
+
+    @Override
+    public void closeView() {
+        finish();
     }
 
     public static Intent newIntent(Context context, Long personId, int mode) {
