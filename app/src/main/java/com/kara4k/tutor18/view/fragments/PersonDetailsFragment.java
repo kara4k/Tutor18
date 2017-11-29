@@ -35,6 +35,8 @@ public class PersonDetailsFragment extends BaseFragment {
     ItemView mGradeItemView;
     @BindView(R.id.phone_item_view)
     ItemView mPhoneItemView;
+    @BindView(R.id.email_item_view)
+    ItemView mEmailItemView;
     @BindView(R.id.note_item_view)
     ItemView mNoteItemView;
     @BindView(R.id.lessons_layout)
@@ -64,6 +66,7 @@ public class PersonDetailsFragment extends BaseFragment {
         mNameItemView.setSummary(mPerson.getName());
         mGradeItemView.setSummary(mPerson.getGrade());
         mPhoneItemView.setSummary(mPerson.getPhone());
+        mEmailItemView.setSummary(mPerson.getEmail());
         mNoteItemView.setSummary(mPerson.getNote());
 
         mLessons = mPerson.getLessons();

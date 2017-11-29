@@ -1,12 +1,12 @@
 package com.kara4k.tutor18.view.activities;
 
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.kara4k.tutor18.R;
+import com.kara4k.tutor18.view.fragments.EventsDayFragment;
 import com.kara4k.tutor18.view.fragments.PersonsListFragment;
 
-public class MainActivity extends DrawerActivity{
+public class MainActivity extends DrawerActivity {
 
 
     @Override
@@ -21,18 +21,14 @@ public class MainActivity extends DrawerActivity{
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onNavItemSelected(MenuItem item) {
-
+        switch (item.getItemId()) {
+            case R.id.nav_events:
+                setFragment(EventsDayFragment.newInstance());
+                break;
+            case R.id.nav_persons:
+                setFragment(PersonsListFragment.newInstance());
+                break;
+        }
     }
 }

@@ -25,6 +25,8 @@ public class PersonEditFragment extends BaseFragment {
     EditText mGradeEditText;
     @BindView(R.id.phone_edit_text)
     EditText mPhoneEditText;
+    @BindView(R.id.email_edit_text)
+    EditText mEmailEditText;
     @BindView(R.id.note_edit_text)
     EditText mNoteEditText;
 
@@ -56,6 +58,7 @@ public class PersonEditFragment extends BaseFragment {
         mNameEditText.setText(mPerson.getName());
         mGradeEditText.setText(mPerson.getGrade());
         mPhoneEditText.setText(mPerson.getPhone());
+        mEmailEditText.setText(mPerson.getEmail());
         mNoteEditText.setText(mPerson.getNote());
     }
 
@@ -69,6 +72,7 @@ public class PersonEditFragment extends BaseFragment {
                 mPerson.setName(mNameEditText.getText().toString());
                 mPerson.setGrade(mGradeEditText.getText().toString());
                 mPerson.setPhone(mPhoneEditText.getText().toString());
+                mPerson.setEmail(mEmailEditText.getText().toString());
                 mPerson.setNote(mNoteEditText.getText().toString());
 
                 ((PersonActivity) getActivity()).onSavePerson(mPerson);

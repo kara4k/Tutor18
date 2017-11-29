@@ -8,6 +8,7 @@
     <string name="menu_item_edit">Edit</string>
     <string name="item_view_grade">Grade:</string>
     <string name="item_view_phone">Phone:</string>
+    <string name="item_view_email">Email:</string>
     <string name="item_view_note">Note:</string>
     <string name="menu_item_save">Save</string>
     <string name="menu_item_delete">Delete</string>

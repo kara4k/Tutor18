@@ -1,6 +1,8 @@
 package com.kara4k.tutor18.presenter;
 
 
+import android.util.Log;
+
 import com.kara4k.tutor18.view.ListViewIF;
 
 import java.util.List;
@@ -43,6 +45,7 @@ public abstract class ListPresenter<T, V extends ListViewIF<T>>
 
     @Override
     public void onSuccess(List<T> list) {
+        Log.e("ListPresenter", "onSuccess: " + list.size());
         mListView.setItems(list);
     }
 

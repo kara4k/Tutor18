@@ -29,16 +29,16 @@ public class PersonsAdapter extends Adapter<Person, PersonsAdapter.PersonHolder>
 
     class PersonHolder extends Holder<Person> {
 
-        @BindView(R.id.first_name_edit_text)
+        @BindView(R.id.first_name_text_view)
         TextView mFirstNameTextView;
-        @BindView(R.id.name_edit_text)
+        @BindView(R.id.name_text_view)
         TextView mNameTextView;
         @BindView(R.id.grade_text_view)
         TextView mGradeTextView;
         @BindView(R.id.phone_text_view)
         TextView mPhoneTextView;
-        @BindView(R.id.note_text_view)
-        TextView mNoteTextView;
+        @BindView(R.id.email_text_view)
+        TextView mEmailTextView;
 
         public PersonHolder(View itemView) {
             super(itemView);
@@ -49,9 +49,9 @@ public class PersonsAdapter extends Adapter<Person, PersonsAdapter.PersonHolder>
             super.onBind(person);
             mFirstNameTextView.setText(person.getFirstName());
             mNameTextView.setText(person.getName());
-            mGradeTextView.setText(String.valueOf(person.getGrade()));
+            mGradeTextView.setText("#".concat(person.getGrade()));
             mPhoneTextView.setText(person.getPhone());
-            mNoteTextView.setText(person.getNote());
+            mEmailTextView.setText(person.getEmail());
         }
 
         @Override

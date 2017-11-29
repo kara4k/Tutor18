@@ -81,10 +81,27 @@
             android:id="@+id/phone_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="phone"
             android:layout_marginLeft="@dimen/dimen_default"
             android:layout_marginRight="@dimen/dimen_default"
             />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_default"
+            android:layout_marginRight="@dimen/dimen_default"
+            android:layout_marginTop="@dimen/dimen_default"
+            android:text="Email:"
+            android:textColor="@android:color/black"/>
 
+        <EditText
+            android:id="@+id/email_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:layout_marginLeft="@dimen/dimen_default"
+            android:layout_marginRight="@dimen/dimen_default"
+            />
 
         <TextView
             android:layout_width="match_parent"

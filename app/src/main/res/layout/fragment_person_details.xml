@@ -2,12 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:orientation="vertical"
+
                   android:paddingLeft="@dimen/dimen_default"
                   android:paddingRight="@dimen/dimen_default">
 
@@ -39,6 +41,15 @@
             app:title_text="@string/item_view_phone"/>
 
         <com.kara4k.tutor18.view.custom.ItemView
+            android:id="@+id/email_item_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon_src="@drawable/ic_email_black_24dp"
+            app:icon_visibility="true"
+            app:summary_text="dondigidon@mail.ru"
+            app:title_text="@string/item_view_email"/>
+
+        <com.kara4k.tutor18.view.custom.ItemView
             android:id="@+id/note_item_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,6 +65,7 @@
             android:id="@+id/lessons_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:orientation="vertical">
 
         </LinearLayout>

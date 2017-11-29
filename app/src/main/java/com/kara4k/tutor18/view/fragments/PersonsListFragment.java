@@ -13,18 +13,19 @@ import com.kara4k.tutor18.view.activities.PersonActivity;
 import com.kara4k.tutor18.view.adapters.Adapter;
 import com.kara4k.tutor18.view.adapters.PersonsAdapter;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.OnClick;
 
-public class PersonsListFragment extends BaseListFragment implements PersonsListViewIF {
+public class PersonsListFragment extends BaseListFragment<Person> implements PersonsListViewIF {
 
     @Inject
     PersonsListPresenter mPresenter;
 
-    private PersonsAdapter mAdapter;
+    @Override
+    protected Adapter getAdapter() {
+        return new PersonsAdapter(mPresenter);
+    }
 
     @Override
     protected void injectDaggerDependencies() {
@@ -40,21 +41,6 @@ public class PersonsListFragment extends BaseListFragment implements PersonsList
         mPresenter.onStart();
     }
 
-    @Override
-    protected Adapter getAdapter() {
-        return mAdapter = new PersonsAdapter(mPresenter);
-    }
-
-    @Override
-    public void setItems(List<Person> persons) {
-        mAdapter.setList(persons);
-    }
-
-    @Override
-    public void showError(String message) {
-        showToast(message);
-    }
-
     @OnClick(R.id.fab)
     void onFabClicked() {
         startActivity(PersonActivity.newIntent(getContext()));
@@ -67,5 +53,9 @@ public class PersonsListFragment extends BaseListFragment implements PersonsList
         Intent intent = PersonActivity.newIntent(getContext(), id, mode);
 
         startActivity(intent);
+    }
+
+    public static PersonsListFragment newInstance() {
+        return new PersonsListFragment();
     }
 }

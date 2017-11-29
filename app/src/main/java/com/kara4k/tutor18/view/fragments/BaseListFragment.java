@@ -16,15 +16,21 @@ import android.widget.Toast;
 import com.kara4k.tutor18.R;
 import com.kara4k.tutor18.di.AppComponent;
 import com.kara4k.tutor18.other.App;
+import com.kara4k.tutor18.view.ListViewIF;
 import com.kara4k.tutor18.view.adapters.Adapter;
+import com.kara4k.tutor18.view.adapters.Holder;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public abstract class BaseListFragment extends Fragment {
+public abstract class BaseListFragment<T> extends Fragment implements ListViewIF<T> {
 
     @BindView(R.id.fab)
     FloatingActionButton mFab;
+
+    private Adapter<T, Holder<T>> mAdapter;
 
     protected abstract Adapter getAdapter();
 
@@ -42,19 +48,30 @@ public abstract class BaseListFragment extends Fragment {
         View view = inflater.inflate(R.layout.recycler_view, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(getAdapter());
+        recyclerView.setAdapter(mAdapter = getAdapter());
 
         ButterKnife.bind(this, view);
         return view;
     }
 
-    protected void injectDaggerDependencies() {}
+    @Override
+    public void setItems(List<T> list) {
+        mAdapter.setList(list);
+    }
+
+    @Override
+    public void showError(String message) {
+        showToast(message);
+    }
+
+    protected void injectDaggerDependencies() {
+    }
 
     protected void showToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    protected AppComponent getAppComponent(){
+    protected AppComponent getAppComponent() {
         return ((App) getActivity().getApplication()).getAppComponent();
     }
 }

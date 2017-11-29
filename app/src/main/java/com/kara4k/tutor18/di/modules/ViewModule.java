@@ -2,6 +2,7 @@ package com.kara4k.tutor18.di.modules;
 
 
 import com.kara4k.tutor18.di.scopes.PerActivity;
+import com.kara4k.tutor18.view.EventsDayIF;
 import com.kara4k.tutor18.view.PersonViewIF;
 import com.kara4k.tutor18.view.PersonsListViewIF;
 import com.kara4k.tutor18.view.ViewIF;
@@ -28,5 +29,11 @@ public class ViewModule {
     @PerActivity
     PersonViewIF providePersonView() {
         return (PersonViewIF) mViewIF;
+    }
+
+    @Provides
+    @PerActivity
+    EventsDayIF provideEventsDayView() {
+        return (EventsDayIF) mViewIF;
     }
 }

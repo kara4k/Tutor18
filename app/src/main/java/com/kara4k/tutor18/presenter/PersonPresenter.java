@@ -1,14 +1,14 @@
 package com.kara4k.tutor18.presenter;
 
 
-import android.util.Log;
-
 import com.kara4k.tutor18.model.DaoSession;
 import com.kara4k.tutor18.model.Lesson;
 import com.kara4k.tutor18.model.LessonDao;
 import com.kara4k.tutor18.model.Person;
 import com.kara4k.tutor18.model.PersonDao;
 import com.kara4k.tutor18.view.PersonViewIF;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -17,6 +17,7 @@ import io.reactivex.CompletableObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 
 public class PersonPresenter implements Presenter, CompletableObserver {
@@ -67,11 +68,12 @@ public class PersonPresenter implements Presenter, CompletableObserver {
     }
 
     public void onDeletePerson(Person person) {
-        Completable completable = Completable.fromAction(()
-                -> mPersonDao.delete(person));
+        Completable completable = Completable.fromAction(() -> {
+            mPersonDao.delete(person);
+            mLessonDao.deleteInTx(queryLessons(person.getId()));
+        });
 
-        subscribe(completable);
-        mView.closeView();
+        subscribe(completable, () -> mView.closeView());
     }
 
     public void onDeleteLesson(long id) {
@@ -87,10 +89,22 @@ public class PersonPresenter implements Presenter, CompletableObserver {
                 .subscribe(this);
     }
 
+    private void subscribe(Completable completable, Action onComplete) {
+        completable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(onComplete, this::onError);
+    }
+
     private Person queryPerson(long id) {
         return mPersonDao.queryBuilder()
                 .where(PersonDao.Properties.Id.eq(id))
                 .build().unique();
+    }
+
+    private List<Lesson> queryLessons(long personId) {
+        return mLessonDao.queryBuilder()
+                .where(LessonDao.Properties.PersonId.eq(personId))
+                .build().list();
     }
 
     @Override
@@ -99,9 +113,7 @@ public class PersonPresenter implements Presenter, CompletableObserver {
     }
 
     @Override
-    public void onComplete() {
-        Log.e("PersonPresenter", "onComplete: " + "done");
-    }
+    public void onComplete() {}
 
     @Override
     public void onError(Throwable e) {

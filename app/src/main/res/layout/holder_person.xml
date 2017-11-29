@@ -1,50 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_margin="@dimen/dimen_default"
-              android:background="@android:color/darker_gray"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/icon_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dimen_default"
+        android:layout_marginRight="@dimen/dimen_default"
+        android:layout_marginTop="@dimen/text_views_margin"
+        android:src="@drawable/ic_person_black_24dp"/>
 
     <TextView
-        android:id="@+id/first_name_edit_text"
+        android:paddingTop="@dimen/dimen_default"
+        android:id="@+id/first_name_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dimen_default"
+        android:layout_marginTop="@dimen/text_views_margin"
+        android:layout_toLeftOf="@+id/grade_text_view"
+        android:layout_toRightOf="@+id/icon_image_view"
+        android:text="Путин"
         android:textColor="@android:color/black"
-        android:layout_marginLeft="@dimen/dimen_default"
-        android:layout_marginRight="@dimen/dimen_default"
-        android:layout_marginTop="@dimen/text_views_margin"/>
+        android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/name_edit_text"
+        android:id="@+id/name_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dimen_default"
+        android:layout_below="@+id/first_name_text_view"
         android:layout_marginRight="@dimen/dimen_default"
-        android:layout_marginTop="@dimen/text_views_margin"/>
+        android:layout_toRightOf="@+id/icon_image_view"
+        android:text="Владимир"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        />
 
     <TextView
         android:id="@+id/grade_text_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dimen_default"
+        android:layout_alignBaseline="@+id/first_name_text_view"
+        android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/dimen_default"
-        android:layout_marginTop="@dimen/text_views_margin"/>
+        android:layout_marginTop="@dimen/text_views_margin"
+        android:text="#3"/>
 
     <TextView
         android:id="@+id/phone_text_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dimen_default"
-        android:layout_marginRight="@dimen/dimen_default"
-        android:layout_marginTop="@dimen/text_views_margin"/>
+        android:layout_below="@+id/name_text_view"
+        android:layout_toEndOf="@+id/icon_image_view"
+        android:layout_toRightOf="@+id/icon_image_view"
+        android:text="+375 33 2892821"
+        android:paddingBottom="@dimen/dimen_default"
+        android:textSize="12sp"/>
 
     <TextView
-        android:id="@+id/note_text_view"
-        android:layout_width="match_parent"
+        android:id="@+id/email_text_view"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/text_views_margin"
+        android:layout_alignBaseline="@+id/phone_text_view"
         android:layout_marginLeft="@dimen/dimen_default"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/grade_text_view"
+        android:layout_marginBottom="@dimen/text_views_margin"
         android:layout_marginRight="@dimen/dimen_default"
-        android:layout_marginTop="@dimen/text_views_margin"/>
-</LinearLayout>
+        android:text="don@gmail.com"
+        />
+</RelativeLayout>

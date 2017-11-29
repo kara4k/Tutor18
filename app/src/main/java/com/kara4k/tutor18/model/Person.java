@@ -23,6 +23,7 @@ public class Person implements Serializable {
     String name;
     String grade;
     String phone;
+    String email;
     String note;
     @ToMany(referencedJoinProperty = "personId")
     @OrderBy("dayOfWeek ASC")
@@ -40,14 +41,15 @@ public class Person implements Serializable {
     @Generated(hash = 778611619)
     private transient PersonDao myDao;
 
-    @Generated(hash = 1804966946)
-    public Person(Long id, String firstName, String name, String grade,
-                  String phone, String note) {
+    @Generated(hash = 1731771100)
+    public Person(Long id, String firstName, String name, String grade, String phone,
+            String email, String note) {
         this.id = id;
         this.firstName = firstName;
         this.name = name;
         this.grade = grade;
         this.phone = phone;
+        this.email = email;
         this.note = note;
     }
 
@@ -203,6 +205,14 @@ public class Person implements Serializable {
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getPersonDao() : null;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 
