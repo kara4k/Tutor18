@@ -15,7 +15,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public abstract class ListPresenter<T, V extends ListViewIF<T>> implements PresenterIF, SingleObserver<List<T>> {
+public abstract class ListPresenter<T, V extends ListViewIF<T>>
+        implements Presenter, SingleObserver<List<T>> {
 
     @Inject
     protected V mListView;
@@ -24,11 +25,11 @@ public abstract class ListPresenter<T, V extends ListViewIF<T>> implements Prese
 
     public abstract void onItemClicked(T t);
 
-    protected V getView(){
+    protected V getView() {
         return mListView;
     }
 
-    protected void subscribe(Callable<List<T>> callable){
+    protected void subscribe(Callable<List<T>> callable) {
         Single.fromCallable(callable)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -7,5 +7,5 @@ public interface ListViewIF<T> extends ViewIF{
 
     void setItems(List<T> list);
 
-    void showError(String message);
+
 }

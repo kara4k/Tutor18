@@ -114,4 +114,9 @@ public class PersonActivity extends BaseActivity implements PersonViewIF {
     public void onSavePerson(Lesson lesson, Person person) {
         mPresenter.onSavePerson(lesson, person);
     }
+
+    @Override
+    public void showError(String message) {
+        showToast(message);
+    }
 }

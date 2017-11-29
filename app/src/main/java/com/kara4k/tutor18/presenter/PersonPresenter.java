@@ -12,18 +12,27 @@ import com.kara4k.tutor18.view.PersonViewIF;
 
 import javax.inject.Inject;
 
-public class PersonPresenter implements PresenterIF {
+import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
+public class PersonPresenter implements Presenter, CompletableObserver {
 
     @Inject
     PersonViewIF mView;
 
     private PersonDao mPersonDao;
     private LessonDao mLessonDao;
+    private CompositeDisposable mCompositeDisposable;
 
     @Inject
     public PersonPresenter(DaoSession daoSession) {
         mPersonDao = daoSession.getPersonDao();
         mLessonDao = daoSession.getLessonDao();
+        mCompositeDisposable = new CompositeDisposable();
     }
 
     public void onCreateNewPerson() {
@@ -39,20 +48,43 @@ public class PersonPresenter implements PresenterIF {
     }
 
     public void onSavePerson(Person person) {
-        mPersonDao.insertOrReplace(person); // TODO: 24.11.2017 rx
+        Completable completable = Completable.fromCallable(()
+                -> mPersonDao.insertOrReplace(person));
+
+        subscribe(completable);
         mView.showPersonDetails(person);
     }
 
     public void onSavePerson(Lesson lesson, Person person) {
-        lesson.setPersonId(person.getId());
-        mLessonDao.insertOrReplace(lesson);
-        mPersonDao.insertOrReplace(person);
+        Completable completable = Completable.fromAction(() -> {
+            lesson.setPersonId(person.getId());
+            mLessonDao.insertOrReplace(lesson);
+            mPersonDao.insertOrReplace(person);
+        });
+
+        subscribe(completable);
         mView.showPersonDetails(person);
     }
 
     public void onDeletePerson(Person person) {
-        mPersonDao.delete(person);
+        Completable completable = Completable.fromAction(()
+                -> mPersonDao.delete(person));
+
+        subscribe(completable);
         mView.closeView();
+    }
+
+    public void onDeleteLesson(long id) {
+        Completable completable = Completable.fromAction(()
+                -> mLessonDao.deleteByKey(id));
+
+        subscribe(completable);
+    }
+
+    private void subscribe(Completable completable) {
+        completable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this);
     }
 
     private Person queryPerson(long id) {
@@ -61,13 +93,24 @@ public class PersonPresenter implements PresenterIF {
                 .build().unique();
     }
 
-    public void onDeleteLesson(long id) {
-        Log.e("PersonPresenter", "onDeleteLesson: " + id);
-        mLessonDao.deleteByKey(id);
+    @Override
+    public void onSubscribe(Disposable d) {
+        mCompositeDisposable.add(d);
     }
 
     @Override
-    public void onDestroy() {
+    public void onComplete() {
+        Log.e("PersonPresenter", "onComplete: " + "done");
+    }
 
+    @Override
+    public void onError(Throwable e) {
+        mView.showError(e.getMessage());
+    }
+
+
+    @Override
+    public void onDestroy() {
+        mCompositeDisposable.dispose();
     }
 }
