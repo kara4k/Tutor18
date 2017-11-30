@@ -13,6 +13,8 @@ import com.kara4k.tutor18.view.EventsDayIF;
 import com.kara4k.tutor18.view.adapters.Adapter;
 import com.kara4k.tutor18.view.adapters.EventsDayAdapter;
 
+import java.util.Calendar;
+
 import javax.inject.Inject;
 
 public class EventsDayFragment extends BaseListFragment<Event> implements EventsDayIF {
@@ -37,6 +39,7 @@ public class EventsDayFragment extends BaseListFragment<Event> implements Events
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFab.setVisibility(View.GONE);
+        mPresenter.onStart(Calendar.getInstance());
     }
 
     public static EventsDayFragment newInstance() {

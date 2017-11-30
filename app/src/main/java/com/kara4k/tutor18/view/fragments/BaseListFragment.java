@@ -32,7 +32,7 @@ public abstract class BaseListFragment<T> extends Fragment implements ListViewIF
 
     private Adapter<T, Holder<T>> mAdapter;
 
-    protected abstract Adapter getAdapter();
+    protected abstract Adapter<T, Holder<T>> getAdapter();
 
     @CallSuper
     @Override

@@ -1,27 +1,36 @@
 package com.kara4k.tutor18.model;
 
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.ToOne;
+
+import java.io.Serializable;
 
 @Entity(active = true, nameInDb = "events")
-public class Event {
+public class Event implements Serializable {
 
+    public static final long serialVersionUID = 40L;
     public static final int NOT_HELD = 0;
     public static final int HELD = 1;
     public static final int RESCHEDULED = 2;
 
     @Id
     Long id;
+    String dayKey;
     Long personId;
+    @ToOne(joinProperty = "personId")
+    Person person;
     Long lessonId;
-    Long date;
+    @ToOne(joinProperty = "lessonId")
+    Lesson lesson;
     int isHeld;
     Long rescheduledToId;
     boolean isPayment;
     boolean isPaid;
+    double price;
     String subjects;
     String note;
     /** Used to resolve relations */
@@ -30,18 +39,19 @@ public class Event {
     /** Used for active entity operations. */
     @Generated(hash = 1542254534)
     private transient EventDao myDao;
-    @Generated(hash = 1934729263)
-    public Event(Long id, Long personId, Long lessonId, Long date, int isHeld,
-            Long rescheduledToId, boolean isPayment, boolean isPaid,
+    @Generated(hash = 366822856)
+    public Event(Long id, String dayKey, Long personId, Long lessonId, int isHeld,
+            Long rescheduledToId, boolean isPayment, boolean isPaid, double price,
             String subjects, String note) {
         this.id = id;
+        this.dayKey = dayKey;
         this.personId = personId;
         this.lessonId = lessonId;
-        this.date = date;
         this.isHeld = isHeld;
         this.rescheduledToId = rescheduledToId;
         this.isPayment = isPayment;
         this.isPaid = isPaid;
+        this.price = price;
         this.subjects = subjects;
         this.note = note;
     }
@@ -54,6 +64,12 @@ public class Event {
     public void setId(Long id) {
         this.id = id;
     }
+    public String getDayKey() {
+        return this.dayKey;
+    }
+    public void setDayKey(String dayKey) {
+        this.dayKey = dayKey;
+    }
     public Long getPersonId() {
         return this.personId;
     }
@@ -65,12 +81,6 @@ public class Event {
     }
     public void setLessonId(Long lessonId) {
         this.lessonId = lessonId;
-    }
-    public Long getDate() {
-        return this.date;
-    }
-    public void setDate(Long date) {
-        this.date = date;
     }
     public int getIsHeld() {
         return this.isHeld;
@@ -96,6 +106,12 @@ public class Event {
     public void setIsPaid(boolean isPaid) {
         this.isPaid = isPaid;
     }
+    public double getPrice() {
+        return this.price;
+    }
+    public void setPrice(double price) {
+        this.price = price;
+    }
     public String getSubjects() {
         return this.subjects;
     }
@@ -107,6 +123,64 @@ public class Event {
     }
     public void setNote(String note) {
         this.note = note;
+    }
+    @Generated(hash = 1154009267)
+    private transient Long person__resolvedKey;
+    /** To-one relationship, resolved on first access. */
+    @Generated(hash = 1752520167)
+    public Person getPerson() {
+        Long __key = this.personId;
+        if (person__resolvedKey == null || !person__resolvedKey.equals(__key)) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            PersonDao targetDao = daoSession.getPersonDao();
+            Person personNew = targetDao.load(__key);
+            synchronized (this) {
+                person = personNew;
+                person__resolvedKey = __key;
+            }
+        }
+        return person;
+    }
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 1834876435)
+    public void setPerson(Person person) {
+        synchronized (this) {
+            this.person = person;
+            personId = person == null ? null : person.getId();
+            person__resolvedKey = personId;
+        }
+    }
+    @Generated(hash = 1079550820)
+    private transient Long lesson__resolvedKey;
+    /** To-one relationship, resolved on first access. */
+    @Generated(hash = 688473547)
+    public Lesson getLesson() {
+        Long __key = this.lessonId;
+        if (lesson__resolvedKey == null || !lesson__resolvedKey.equals(__key)) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            LessonDao targetDao = daoSession.getLessonDao();
+            Lesson lessonNew = targetDao.load(__key);
+            synchronized (this) {
+                lesson = lessonNew;
+                lesson__resolvedKey = __key;
+            }
+        }
+        return lesson;
+    }
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 601950609)
+    public void setLesson(Lesson lesson) {
+        synchronized (this) {
+            this.lesson = lesson;
+            lessonId = lesson == null ? null : lesson.getId();
+            lesson__resolvedKey = lessonId;
+        }
     }
     /**
      * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.

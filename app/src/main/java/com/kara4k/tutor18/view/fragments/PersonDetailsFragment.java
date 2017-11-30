@@ -132,7 +132,6 @@ public class PersonDetailsFragment extends BaseFragment {
 
         itemView.setOnIconClickListener((view) -> showDialog(title, message, onOkListener));
         itemView.setClickListener(() -> editLesson(itemView));
-
         return itemView;
     }
 

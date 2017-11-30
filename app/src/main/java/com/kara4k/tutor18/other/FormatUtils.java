@@ -1,6 +1,8 @@
 package com.kara4k.tutor18.other;
 
 
+import android.util.SparseIntArray;
+
 import com.kara4k.tutor18.model.Lesson;
 
 import java.math.BigDecimal;
@@ -10,7 +12,13 @@ import java.util.Calendar;
 
 public class FormatUtils {
 
-    public static final String ZERO = "0";
+    private static final String ZERO = "0";
+
+    private static SparseIntArray sDayDbValues;
+
+    static {
+        initDayDbValues();
+    }
 
     public static String formatTime(int hour, int min) {
         String h = formatTimeUnit(hour);
@@ -29,6 +37,16 @@ public class FormatUtils {
 
         fillFromMonday(dayNames, sortedDays);
         return sortedDays;
+    }
+
+    private static void fillFromMonday(String[] dayNames, String[] sortedDays) {
+        sortedDays[0] = dayNames[Calendar.MONDAY];
+        sortedDays[1] = dayNames[Calendar.TUESDAY];
+        sortedDays[2] = dayNames[Calendar.WEDNESDAY];
+        sortedDays[3] = dayNames[Calendar.THURSDAY];
+        sortedDays[4] = dayNames[Calendar.FRIDAY];
+        sortedDays[5] = dayNames[Calendar.SATURDAY];
+        sortedDays[6] = dayNames[Calendar.SUNDAY];
     }
 
     public static BigDecimal formatPrice(String price) {
@@ -64,13 +82,18 @@ public class FormatUtils {
         return String.format("%s - %s", start, end);
     }
 
-    private static void fillFromMonday(String[] dayNames, String[] sortedDays) {
-        sortedDays[0] = dayNames[Calendar.MONDAY];
-        sortedDays[1] = dayNames[Calendar.TUESDAY];
-        sortedDays[2] = dayNames[Calendar.WEDNESDAY];
-        sortedDays[3] = dayNames[Calendar.THURSDAY];
-        sortedDays[4] = dayNames[Calendar.FRIDAY];
-        sortedDays[5] = dayNames[Calendar.SATURDAY];
-        sortedDays[6] = dayNames[Calendar.SUNDAY];
+    public static int getDayDbValue(int i){
+        return sDayDbValues.get(i);
+    }
+
+    private static void initDayDbValues(){
+        sDayDbValues = new SparseIntArray(7);
+        sDayDbValues.put(Calendar.MONDAY, 0);
+        sDayDbValues.put(Calendar.TUESDAY, 1);
+        sDayDbValues.put(Calendar.WEDNESDAY, 2);
+        sDayDbValues.put(Calendar.THURSDAY, 3);
+        sDayDbValues.put(Calendar.FRIDAY, 4);
+        sDayDbValues.put(Calendar.SATURDAY, 5);
+        sDayDbValues.put(Calendar.SUNDAY, 6);
     }
 }
