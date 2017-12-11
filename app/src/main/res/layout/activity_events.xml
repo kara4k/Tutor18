@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_marginLeft="@dimen/dimen_default"
+              android:layout_marginRight="@dimen/dimen_default"
+              android:layout_height="wrap_content">
+    <com.kara4k.tutor18.view.custom.ItemView
+        android:id="@+id/start_date_item_view"
+        app:title_text="Start:"
+        app:summary_text="Tap to select"
+        app:icon_src="@drawable/ic_event_black_24dp"
+        app:icon_is_visible="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.kara4k.tutor18.view.custom.ItemView
+        app:title_text="End:"
+        android:id="@+id/end_date_item_view"
+        app:summary_text="Tap to select"
+        app:icon_src="@drawable/ic_event_black_24dp"
+        app:icon_is_visible="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/dimen_default"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/create_date_events_button"
+            android:text="Create"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/delete_date_events_button"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

@@ -6,4 +6,5 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="dimen_default">16dp</dimen>
     <dimen name="text_views_margin">5dp</dimen>
+    <dimen name="bottom_padding">50dp</dimen>
 </resources>

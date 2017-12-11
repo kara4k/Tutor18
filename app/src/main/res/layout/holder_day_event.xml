@@ -9,7 +9,7 @@
         android:id="@+id/icon_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_alignBaseline="@id/time_text_view"
         android:layout_marginLeft="@dimen/dimen_default"
         android:layout_marginRight="@dimen/dimen_default"
         android:layout_marginTop="@dimen/text_views_margin"
@@ -65,7 +65,8 @@
         />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name_text_view"
         android:layout_marginBottom="@dimen/dimen_default"
@@ -75,14 +76,16 @@
         android:gravity="end"
         android:orientation="horizontal">
 
+
+
         <ImageView
-            android:id="@+id/pay_day_image_view"
+            android:id="@+id/payment_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_attach_money_black_18dp"/>
 
         <TextView
-            android:id="@+id/pay_text_view"
+            android:id="@+id/month_price_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -94,7 +97,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_default"
-            android:layout_marginRight="@dimen/dimen_default"
-            android:src="@drawable/ic_done_black_18dp"/>
+            android:src="@drawable/ic_help_outline_black_18dp"/>
     </LinearLayout>
 </RelativeLayout>

@@ -4,6 +4,7 @@ package com.kara4k.tutor18.other;
 import android.util.SparseIntArray;
 
 import com.kara4k.tutor18.model.Lesson;
+import com.kara4k.tutor18.model.Person;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -21,12 +22,12 @@ public class FormatUtils {
     }
 
     public static String formatTime(int hour, int min) {
-        String h = formatTimeUnit(hour);
-        String m = formatTimeUnit(min);
+        String h = formatCalUnit(hour);
+        String m = formatCalUnit(min);
         return String.format("%s:%s", h, m);
     }
 
-    private static String formatTimeUnit(int i) {
+    private static String formatCalUnit(int i) {
         if (i < 10) return String.format("0%d", i);
         return String.valueOf(i);
     }
@@ -65,7 +66,7 @@ public class FormatUtils {
                 .toPlainString();
     }
 
-    public static String getLessonSummary(Lesson lesson) {
+    public static String formatTime(Lesson lesson) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, lesson.getStartHour());
         calendar.set(Calendar.MINUTE, lesson.getStartMin());
@@ -77,16 +78,44 @@ public class FormatUtils {
         int minute = calendar.get(Calendar.MINUTE);
 
         String start = formatTime(lesson.getStartHour(), lesson.getStartMin());
-        String end = formatTime(hour,minute);
+        String end = formatTime(hour, minute);
 
         return String.format("%s - %s", start, end);
     }
 
-    public static int getDayDbValue(int i){
+    public static String formatCalDateTime(Calendar calendar) {
+        String date = formatCalDay(calendar);
+        String time = formatCalTime(calendar);
+        return String.format("%s %s", date, time);
+    }
+
+    public static String formatCalDay(Calendar calendar) {
+        String day = formatCalUnit(calendar.get(Calendar.DAY_OF_MONTH));
+        String month = formatCalUnit(calendar.get(Calendar.MONTH) + 1);
+        int year = calendar.get(Calendar.YEAR);
+
+        return String.format("%s.%s.%d", day, month, year);
+    }
+
+    public static String formatCalTime(Calendar calendar) {
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int min = calendar.get(Calendar.MINUTE);
+
+        return formatTime(hour, min);
+    }
+
+    public static String formatName(Person person) {
+        String firstName = person.getFirstName();
+        String name = person.getName();
+
+        return String.format("%s %s", firstName, name);
+    }
+
+    public static int getDayDbValue(int i) {
         return sDayDbValues.get(i);
     }
 
-    private static void initDayDbValues(){
+    private static void initDayDbValues() {
         sDayDbValues = new SparseIntArray(7);
         sDayDbValues.put(Calendar.MONDAY, 0);
         sDayDbValues.put(Calendar.TUESDAY, 1);

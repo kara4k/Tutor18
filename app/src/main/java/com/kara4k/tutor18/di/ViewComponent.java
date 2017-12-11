@@ -2,6 +2,8 @@ package com.kara4k.tutor18.di;
 
 import com.kara4k.tutor18.di.modules.ViewModule;
 import com.kara4k.tutor18.di.scopes.PerActivity;
+import com.kara4k.tutor18.view.activities.EventDetails;
+import com.kara4k.tutor18.view.activities.EventsActivity;
 import com.kara4k.tutor18.view.activities.PersonActivity;
 import com.kara4k.tutor18.view.fragments.EventsDayFragment;
 import com.kara4k.tutor18.view.fragments.PersonsListFragment;
@@ -16,5 +18,9 @@ public interface ViewComponent {
 
     void injectPersonActivity(PersonActivity activity);
 
+    void injectEventsActivity(EventsActivity activity);
+
     void injectEventsDayFrag(EventsDayFragment fragment);
+
+    void injectEventDetailsActivity(EventDetails activity);
 }

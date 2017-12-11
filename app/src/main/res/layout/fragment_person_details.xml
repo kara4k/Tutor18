@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:icon_src="@drawable/ic_person_black_24dp"
-            app:icon_visibility="true"
+            app:icon_is_visible="true"
             app:summary_text="Владимир"
             app:title_text="Путин"/>
 
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:icon_src="@drawable/ic_account_balance_black_24dp"
-            app:icon_visibility="true"
+            app:icon_is_visible="true"
             app:summary_text="11"
             app:title_text="@string/item_view_grade"/>
 
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:icon_src="@drawable/ic_call_black_24dp"
-            app:icon_visibility="true"
+            app:icon_is_visible="true"
             app:summary_text="+375 33 3718236"
             app:title_text="@string/item_view_phone"/>
 
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:icon_src="@drawable/ic_email_black_24dp"
-            app:icon_visibility="true"
+            app:icon_is_visible="true"
             app:summary_text="dondigidon@mail.ru"
             app:title_text="@string/item_view_email"/>
 
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:icon_src="@drawable/ic_note_black_24dp"
-            app:icon_visibility="true"
+            app:icon_is_visible="true"
             app:summary_text="Серьезный"
             app:title_text="@string/item_view_note"/>
 
@@ -64,6 +64,7 @@
         <LinearLayout
             android:id="@+id/lessons_layout"
             android:layout_width="match_parent"
+            android:paddingBottom="@dimen/bottom_padding"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
             android:orientation="vertical">

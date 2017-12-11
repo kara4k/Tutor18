@@ -26,16 +26,17 @@ public class EventDao extends AbstractDao<Event, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property DayKey = new Property(1, String.class, "dayKey", false, "DAY_KEY");
-        public final static Property PersonId = new Property(2, Long.class, "personId", false, "PERSON_ID");
-        public final static Property LessonId = new Property(3, Long.class, "lessonId", false, "LESSON_ID");
-        public final static Property IsHeld = new Property(4, int.class, "isHeld", false, "IS_HELD");
-        public final static Property RescheduledToId = new Property(5, Long.class, "rescheduledToId", false, "RESCHEDULED_TO_ID");
+        public final static Property PersonId = new Property(1, Long.class, "personId", false, "PERSON_ID");
+        public final static Property LessonId = new Property(2, Long.class, "lessonId", false, "LESSON_ID");
+        public final static Property IsHeld = new Property(3, int.class, "isHeld", false, "IS_HELD");
+        public final static Property RescheduledToId = new Property(4, Long.class, "rescheduledToId", false, "RESCHEDULED_TO_ID");
+        public final static Property RescheduledFromId = new Property(5, Long.class, "rescheduledFromId", false, "RESCHEDULED_FROM_ID");
         public final static Property IsPayment = new Property(6, boolean.class, "isPayment", false, "IS_PAYMENT");
         public final static Property IsPaid = new Property(7, boolean.class, "isPaid", false, "IS_PAID");
-        public final static Property Price = new Property(8, double.class, "price", false, "PRICE");
-        public final static Property Subjects = new Property(9, String.class, "subjects", false, "SUBJECTS");
-        public final static Property Note = new Property(10, String.class, "note", false, "NOTE");
+        public final static Property ExpectedPrice = new Property(8, double.class, "expectedPrice", false, "EXPECTED_PRICE");
+        public final static Property Price = new Property(9, double.class, "price", false, "PRICE");
+        public final static Property Subjects = new Property(10, String.class, "subjects", false, "SUBJECTS");
+        public final static Property Note = new Property(11, String.class, "note", false, "NOTE");
     }
 
     private DaoSession daoSession;
@@ -55,16 +56,17 @@ public class EventDao extends AbstractDao<Event, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"events\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"DAY_KEY\" TEXT," + // 1: dayKey
-                "\"PERSON_ID\" INTEGER," + // 2: personId
-                "\"LESSON_ID\" INTEGER," + // 3: lessonId
-                "\"IS_HELD\" INTEGER NOT NULL ," + // 4: isHeld
-                "\"RESCHEDULED_TO_ID\" INTEGER," + // 5: rescheduledToId
+                "\"PERSON_ID\" INTEGER," + // 1: personId
+                "\"LESSON_ID\" INTEGER," + // 2: lessonId
+                "\"IS_HELD\" INTEGER NOT NULL ," + // 3: isHeld
+                "\"RESCHEDULED_TO_ID\" INTEGER," + // 4: rescheduledToId
+                "\"RESCHEDULED_FROM_ID\" INTEGER," + // 5: rescheduledFromId
                 "\"IS_PAYMENT\" INTEGER NOT NULL ," + // 6: isPayment
                 "\"IS_PAID\" INTEGER NOT NULL ," + // 7: isPaid
-                "\"PRICE\" REAL NOT NULL ," + // 8: price
-                "\"SUBJECTS\" TEXT," + // 9: subjects
-                "\"NOTE\" TEXT);"); // 10: note
+                "\"EXPECTED_PRICE\" REAL NOT NULL ," + // 8: expectedPrice
+                "\"PRICE\" REAL NOT NULL ," + // 9: price
+                "\"SUBJECTS\" TEXT," + // 10: subjects
+                "\"NOTE\" TEXT);"); // 11: note
     }
 
     /** Drops the underlying database table. */
@@ -82,38 +84,39 @@ public class EventDao extends AbstractDao<Event, Long> {
             stmt.bindLong(1, id);
         }
  
-        String dayKey = entity.getDayKey();
-        if (dayKey != null) {
-            stmt.bindString(2, dayKey);
-        }
- 
         Long personId = entity.getPersonId();
         if (personId != null) {
-            stmt.bindLong(3, personId);
+            stmt.bindLong(2, personId);
         }
  
         Long lessonId = entity.getLessonId();
         if (lessonId != null) {
-            stmt.bindLong(4, lessonId);
+            stmt.bindLong(3, lessonId);
         }
-        stmt.bindLong(5, entity.getIsHeld());
+        stmt.bindLong(4, entity.getIsHeld());
  
         Long rescheduledToId = entity.getRescheduledToId();
         if (rescheduledToId != null) {
-            stmt.bindLong(6, rescheduledToId);
+            stmt.bindLong(5, rescheduledToId);
+        }
+ 
+        Long rescheduledFromId = entity.getRescheduledFromId();
+        if (rescheduledFromId != null) {
+            stmt.bindLong(6, rescheduledFromId);
         }
         stmt.bindLong(7, entity.getIsPayment() ? 1L: 0L);
         stmt.bindLong(8, entity.getIsPaid() ? 1L: 0L);
-        stmt.bindDouble(9, entity.getPrice());
+        stmt.bindDouble(9, entity.getExpectedPrice());
+        stmt.bindDouble(10, entity.getPrice());
  
         String subjects = entity.getSubjects();
         if (subjects != null) {
-            stmt.bindString(10, subjects);
+            stmt.bindString(11, subjects);
         }
  
         String note = entity.getNote();
         if (note != null) {
-            stmt.bindString(11, note);
+            stmt.bindString(12, note);
         }
     }
 
@@ -126,38 +129,39 @@ public class EventDao extends AbstractDao<Event, Long> {
             stmt.bindLong(1, id);
         }
  
-        String dayKey = entity.getDayKey();
-        if (dayKey != null) {
-            stmt.bindString(2, dayKey);
-        }
- 
         Long personId = entity.getPersonId();
         if (personId != null) {
-            stmt.bindLong(3, personId);
+            stmt.bindLong(2, personId);
         }
  
         Long lessonId = entity.getLessonId();
         if (lessonId != null) {
-            stmt.bindLong(4, lessonId);
+            stmt.bindLong(3, lessonId);
         }
-        stmt.bindLong(5, entity.getIsHeld());
+        stmt.bindLong(4, entity.getIsHeld());
  
         Long rescheduledToId = entity.getRescheduledToId();
         if (rescheduledToId != null) {
-            stmt.bindLong(6, rescheduledToId);
+            stmt.bindLong(5, rescheduledToId);
+        }
+ 
+        Long rescheduledFromId = entity.getRescheduledFromId();
+        if (rescheduledFromId != null) {
+            stmt.bindLong(6, rescheduledFromId);
         }
         stmt.bindLong(7, entity.getIsPayment() ? 1L: 0L);
         stmt.bindLong(8, entity.getIsPaid() ? 1L: 0L);
-        stmt.bindDouble(9, entity.getPrice());
+        stmt.bindDouble(9, entity.getExpectedPrice());
+        stmt.bindDouble(10, entity.getPrice());
  
         String subjects = entity.getSubjects();
         if (subjects != null) {
-            stmt.bindString(10, subjects);
+            stmt.bindString(11, subjects);
         }
  
         String note = entity.getNote();
         if (note != null) {
-            stmt.bindString(11, note);
+            stmt.bindString(12, note);
         }
     }
 
@@ -176,16 +180,17 @@ public class EventDao extends AbstractDao<Event, Long> {
     public Event readEntity(Cursor cursor, int offset) {
         Event entity = new Event( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // dayKey
-            cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2), // personId
-            cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3), // lessonId
-            cursor.getInt(offset + 4), // isHeld
-            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5), // rescheduledToId
+            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // personId
+            cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2), // lessonId
+            cursor.getInt(offset + 3), // isHeld
+            cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4), // rescheduledToId
+            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5), // rescheduledFromId
             cursor.getShort(offset + 6) != 0, // isPayment
             cursor.getShort(offset + 7) != 0, // isPaid
-            cursor.getDouble(offset + 8), // price
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // subjects
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // note
+            cursor.getDouble(offset + 8), // expectedPrice
+            cursor.getDouble(offset + 9), // price
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // subjects
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11) // note
         );
         return entity;
     }
@@ -193,16 +198,17 @@ public class EventDao extends AbstractDao<Event, Long> {
     @Override
     public void readEntity(Cursor cursor, Event entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setDayKey(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setPersonId(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
-        entity.setLessonId(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
-        entity.setIsHeld(cursor.getInt(offset + 4));
-        entity.setRescheduledToId(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
+        entity.setPersonId(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
+        entity.setLessonId(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
+        entity.setIsHeld(cursor.getInt(offset + 3));
+        entity.setRescheduledToId(cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4));
+        entity.setRescheduledFromId(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
         entity.setIsPayment(cursor.getShort(offset + 6) != 0);
         entity.setIsPaid(cursor.getShort(offset + 7) != 0);
-        entity.setPrice(cursor.getDouble(offset + 8));
-        entity.setSubjects(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setNote(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setExpectedPrice(cursor.getDouble(offset + 8));
+        entity.setPrice(cursor.getDouble(offset + 9));
+        entity.setSubjects(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setNote(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
      }
     
     @Override

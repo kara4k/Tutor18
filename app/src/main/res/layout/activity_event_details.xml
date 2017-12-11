@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/bottom_padding"
+        android:paddingLeft="@dimen/dimen_default"
+        android:paddingRight="@dimen/dimen_default">
+
+        <com.kara4k.tutor18.view.custom.ItemView
+            android:id="@+id/time_item_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon_is_visible="true"
+            app:icon_src="@drawable/ic_access_time_black_24dp"
+            app:summary_text="17:00 - 18:00"
+            app:title_text="Time:"/>
+
+        <com.kara4k.tutor18.view.custom.ItemView
+            android:id="@+id/name_item_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon_is_visible="true"
+            app:icon_src="@drawable/ic_person_black_24dp"
+            app:summary_text="Путин Владимир"
+            app:title_text="Person"/>
+
+        <com.kara4k.tutor18.view.custom.ItemView
+            android:id="@+id/duration_item_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon_is_visible="true"
+            app:icon_src="@drawable/ic_timer_black_24dp"
+            app:summary_text="60 мин"
+            app:title_text="Duration:"/>
+
+        <com.kara4k.tutor18.view.custom.ItemView
+            android:id="@+id/price_item_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon_is_visible="true"
+            app:icon_src="@drawable/ic_attach_money_black_24dp"
+            app:summary_text="$ 12.00"
+            app:title_text="За занятие:"/>
+
+        <View
+            style="@style/Divider"/>
+
+        <com.kara4k.tutor18.view.custom.ItemView
+            android:id="@+id/subject_item_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon_is_visible="true"
+            app:icon_src="@drawable/ic_subject_black_24dp"
+            app:summary_text="Знаменатель"
+            app:title_text="Темы:"/>
+
+        <com.kara4k.tutor18.view.custom.ItemView
+            android:id="@+id/note_item_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon_is_visible="true"
+            app:icon_src="@drawable/ic_note_black_24dp"
+            app:summary_text="Володя, это же знаменатель!!!!"
+            app:title_text="Дополнительно:"/>
+
+        <LinearLayout
+            android:id="@+id/payment_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                style="@style/Divider"/>
+
+            <com.kara4k.tutor18.view.custom.ItemView
+                android:id="@+id/expected_item_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:icon_is_visible="true"
+                app:icon_src="@drawable/ic_attach_money_black_24dp"
+                app:summary_text="$ 180.00"
+                app:title_text="Ожидаемое:"/>
+
+            <com.kara4k.tutor18.view.custom.ItemView
+                android:id="@+id/payment_item_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                app:check_box_is_visible="true"
+                app:is_checkable="true"
+                app:summary_text="$ 180.00"
+                app:title_text="К оплате:"/>
+
+        </LinearLayout>
+
+        <View
+            style="@style/Divider"/>
+
+        <com.kara4k.tutor18.view.custom.ItemView
+            android:id="@+id/rescheduled_from_item_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon_is_visible="true"
+            app:icon_src="@drawable/ic_undo_black_24dp"
+            app:summary_text="24.12.2018"
+            app:title_text="Перенесено с:"/>
+
+        <com.kara4k.tutor18.view.custom.ItemView
+            android:id="@+id/is_held_item_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon_is_visible="true"
+            app:icon_src="@drawable/ic_help_outline_black_24dp"
+            app:summary_text="Перенесено"
+            app:title_text="Проведено:"/>
+
+        <LinearLayout
+            android:id="@+id/rescheduled_to_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.kara4k.tutor18.view.custom.ItemView
+                android:id="@+id/rescheduled_to_day_item_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:icon_is_visible="true"
+                app:icon_src="@drawable/ic_event_black_24dp"
+                app:summary_text="24.12.2018"
+                app:title_text="Дата:"/>
+
+            <com.kara4k.tutor18.view.custom.ItemView
+                android:id="@+id/rescheduled_to_time_item_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:icon_is_visible="true"
+                app:icon_src="@drawable/ic_access_time_black_24dp"
+                app:summary_text="18:00"
+                app:title_text="Время:"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

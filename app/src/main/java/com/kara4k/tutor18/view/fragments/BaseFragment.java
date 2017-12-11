@@ -41,7 +41,7 @@ public abstract class BaseFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    protected void showDialog(String title, String text, DialogInterface.OnClickListener okListener) {
+    protected void showConfirmDialog(String title, String text, DialogInterface.OnClickListener okListener) {
         new AlertDialog.Builder(getContext())
                 .setTitle(title)
                 .setMessage(text)

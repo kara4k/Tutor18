@@ -82,7 +82,7 @@ public class LessonActivity extends BaseActivity {
             mStartItemView.setSummary(FormatUtils.formatTime(h, m));
         };
 
-        new TimePickerDialog(this, R.style.TimePickerStyle
+        new TimePickerDialog(this, R.style.PickerStyle
                 , listener, startHour, startMin, true)
                 .show();
     }
@@ -100,7 +100,7 @@ public class LessonActivity extends BaseActivity {
     }
 
     @OnClick(R.id.price_item_view)
-    void onPriceClick(View view) {
+    void onPriceClick(View view) { // TODO: 10.12.2017 editdialog to base activity
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_edit_text, null);
         EditText editText = dialogView.findViewById(R.id.edit_text);
         String formattedPrice = FormatUtils.formatPrice(mLesson.getPrice());
@@ -121,8 +121,10 @@ public class LessonActivity extends BaseActivity {
                 .create().show();
     }
 
+
+
     @OnClick(R.id.fab)
-    public void onFabClick(){
+    public void onFabClick() {
         Intent intent = new Intent();
         intent.putExtra(LESSON, mLesson);
         setResult(Activity.RESULT_OK, intent);

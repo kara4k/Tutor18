@@ -28,6 +28,7 @@ public class ItemView extends RelativeLayout implements View.OnClickListener {
     private String mTitleText;
     private String mSummaryText;
     private boolean mIsCheckBoxVisible;
+    private boolean mIsCheckBoxEnabled;
     private boolean mIsChecked;
     private boolean mIsToggleCheckBox;
     private boolean mIsIconVisible;
@@ -43,6 +44,7 @@ public class ItemView extends RelativeLayout implements View.OnClickListener {
         super(context);
         inflateViews(context);
         mIsCheckBoxVisible = false;
+        mIsCheckBoxEnabled = true;
         mIsChecked = false;
         mIsToggleCheckBox = false;
         mIsIconVisible = false;
@@ -59,11 +61,12 @@ public class ItemView extends RelativeLayout implements View.OnClickListener {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ItemView);
         mTitleText = a.getString(R.styleable.ItemView_title_text);
         mSummaryText = a.getString(R.styleable.ItemView_summary_text);
-        mIsCheckBoxVisible = a.getBoolean(R.styleable.ItemView_check_box_is_visibile, false);
+        mIsCheckBoxVisible = a.getBoolean(R.styleable.ItemView_check_box_is_visible, false);
+        mIsCheckBoxEnabled = a.getBoolean(R.styleable.ItemView_check_box_is_enabled, true);
         mIsChecked = a.getBoolean(R.styleable.ItemView_is_checked, false);
         mIsToggleCheckBox = a.getBoolean(R.styleable.ItemView_is_checkable, false);
-        mIsIconVisible = a.getBoolean(R.styleable.ItemView_icon_visibility, false);
-        mIsImageVisible = a.getBoolean(R.styleable.ItemView_photo_visibility, false);
+        mIsIconVisible = a.getBoolean(R.styleable.ItemView_icon_is_visible, false);
+        mIsImageVisible = a.getBoolean(R.styleable.ItemView_photo_is_visible, false);
         mIconDrawable = a.getDrawable(R.styleable.ItemView_icon_src);
         mImageDrawable = a.getDrawable(R.styleable.ItemView_photo_src);
 
@@ -87,6 +90,7 @@ public class ItemView extends RelativeLayout implements View.OnClickListener {
             mCheckBox.setVisibility(INVISIBLE);
         }
 
+        mCheckBox.setEnabled(mIsCheckBoxEnabled);
         mCheckBox.setChecked(mIsChecked);
 
         if (mIsIconVisible) {

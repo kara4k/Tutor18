@@ -22,9 +22,10 @@ public class PersonsListPresenter extends ListPresenter<Person, PersonsListViewI
     }
 
     private void showAllPersons() {
-        subscribe(() -> mPersonDao.queryBuilder().build().list());
+        subscribe(() -> mPersonDao.queryBuilder()
+                .orderAsc(PersonDao.Properties.FirstName)
+                .build().list());
     }
-
 
     @Override
     public void onItemClicked(Person person) {

@@ -92,7 +92,7 @@ public class PersonDetailsFragment extends BaseFragment {
                 DialogInterface.OnClickListener listener = (d, i) ->
                         ((PersonActivity) getActivity()).onDeletePerson(mPerson);
 
-                showDialog(title, text, listener);
+                showConfirmDialog(title, text, listener);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -122,7 +122,7 @@ public class PersonDetailsFragment extends BaseFragment {
 
         itemView.setUuid(lesson.getId());
         itemView.setTitle(FormatUtils.getSortedDays()[lesson.getDayOfWeek()]);
-        itemView.setSummary(FormatUtils.getLessonSummary(lesson));
+        itemView.setSummary(FormatUtils.formatTime(lesson));
         itemView.setIconVisibility(View.VISIBLE);
         itemView.setIconImageResource(R.drawable.ic_remove_black_24dp);
 
@@ -130,7 +130,7 @@ public class PersonDetailsFragment extends BaseFragment {
         String message = getString(R.string.dialog_lesson_delete_message);
         DialogInterface.OnClickListener onOkListener = (di, i) -> removeLesson(itemView);
 
-        itemView.setOnIconClickListener((view) -> showDialog(title, message, onOkListener));
+        itemView.setOnIconClickListener((view) -> showConfirmDialog(title, message, onOkListener));
         itemView.setClickListener(() -> editLesson(itemView));
         return itemView;
     }

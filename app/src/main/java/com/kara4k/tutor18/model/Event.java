@@ -13,13 +13,13 @@ import java.io.Serializable;
 public class Event implements Serializable {
 
     public static final long serialVersionUID = 40L;
+    public static final int UNDEFINED = -1;
     public static final int NOT_HELD = 0;
     public static final int HELD = 1;
     public static final int RESCHEDULED = 2;
 
     @Id
     Long id;
-    String dayKey;
     Long personId;
     @ToOne(joinProperty = "personId")
     Person person;
@@ -28,8 +28,10 @@ public class Event implements Serializable {
     Lesson lesson;
     int isHeld;
     Long rescheduledToId;
+    Long rescheduledFromId;
     boolean isPayment;
     boolean isPaid;
+    double expectedPrice;
     double price;
     String subjects;
     String note;
@@ -39,18 +41,20 @@ public class Event implements Serializable {
     /** Used for active entity operations. */
     @Generated(hash = 1542254534)
     private transient EventDao myDao;
-    @Generated(hash = 366822856)
-    public Event(Long id, String dayKey, Long personId, Long lessonId, int isHeld,
-            Long rescheduledToId, boolean isPayment, boolean isPaid, double price,
-            String subjects, String note) {
+    @Generated(hash = 1443324403)
+    public Event(Long id, Long personId, Long lessonId, int isHeld,
+            Long rescheduledToId, Long rescheduledFromId, boolean isPayment,
+            boolean isPaid, double expectedPrice, double price, String subjects,
+            String note) {
         this.id = id;
-        this.dayKey = dayKey;
         this.personId = personId;
         this.lessonId = lessonId;
         this.isHeld = isHeld;
         this.rescheduledToId = rescheduledToId;
+        this.rescheduledFromId = rescheduledFromId;
         this.isPayment = isPayment;
         this.isPaid = isPaid;
+        this.expectedPrice = expectedPrice;
         this.price = price;
         this.subjects = subjects;
         this.note = note;
@@ -64,12 +68,6 @@ public class Event implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getDayKey() {
-        return this.dayKey;
-    }
-    public void setDayKey(String dayKey) {
-        this.dayKey = dayKey;
-    }
     public Long getPersonId() {
         return this.personId;
     }
@@ -82,7 +80,7 @@ public class Event implements Serializable {
     public void setLessonId(Long lessonId) {
         this.lessonId = lessonId;
     }
-    public int getIsHeld() {
+    public int getHeld() {
         return this.isHeld;
     }
     public void setIsHeld(int isHeld) {
@@ -94,19 +92,31 @@ public class Event implements Serializable {
     public void setRescheduledToId(Long rescheduledToId) {
         this.rescheduledToId = rescheduledToId;
     }
-    public boolean getIsPayment() {
+    public Long getRescheduledFromId() {
+        return this.rescheduledFromId;
+    }
+    public void setRescheduledFromId(Long rescheduledFromId) {
+        this.rescheduledFromId = rescheduledFromId;
+    }
+    public boolean isPayment() {
         return this.isPayment;
     }
     public void setIsPayment(boolean isPayment) {
         this.isPayment = isPayment;
     }
-    public boolean getIsPaid() {
+    public boolean isPaid() {
         return this.isPaid;
     }
     public void setIsPaid(boolean isPaid) {
         this.isPaid = isPaid;
     }
-    public double getPrice() {
+    public double getExpectedPrice() {
+        return this.expectedPrice;
+    }
+    public void setExpectedPrice(double expectedPrice) {
+        this.expectedPrice = expectedPrice;
+    }
+    public double getMonthPrice() {
         return this.price;
     }
     public void setPrice(double price) {
@@ -221,4 +231,18 @@ public class Event implements Serializable {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getEventDao() : null;
     }
+    public int getIsHeld() {
+        return this.isHeld;
+    }
+    public boolean getIsPayment() {
+        return this.isPayment;
+    }
+    public boolean getIsPaid() {
+        return this.isPaid;
+    }
+    public double getPrice() {
+        return this.price;
+    }
+   
+
 }

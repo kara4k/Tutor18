@@ -19,4 +19,14 @@
     <string name="dialog_lesson_price_title">Price:</string>
     <string name="menu_item_add_lesson">Add lesson</string>
     <string name="dialog_lesson_delete_message">Are you sure to delete lesson?</string>
+    <string name="message_events_created">Created events: %1$d</string>
+    <string name="illegal_days_order"><![CDATA[Start day > than end day]]></string>
+    <string name="dialog_fill_schedule_title">Fill schedule</string>
+    <string name="dialog_fill_schedule_message">Existing lessons will be overridden in this period</string>
+    <string name="dialog_delete_schedule_title">Delete schedule</string>
+    <string name="dialog_delete_schedule_message">Existing lessons will be deleted in this period</string>
+    <string name="message_events_deleted">Deleted events: %1$d</string>
+    <string name="event_duration">%1$d min</string>
+    <string name="event_price">$ %1$s</string>
+    <string name="menu_item_select_date">Select date</string>
 </resources>
