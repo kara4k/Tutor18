@@ -2,18 +2,18 @@ package com.kara4k.tutor18.view.activities;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.text.InputType;
 import android.view.View;
-import android.widget.EditText;
 
 import com.kara4k.tutor18.R;
 import com.kara4k.tutor18.model.Lesson;
 import com.kara4k.tutor18.other.FormatUtils;
+import com.kara4k.tutor18.view.custom.EditTextDialog;
 import com.kara4k.tutor18.view.custom.ItemView;
 
 import java.math.BigDecimal;
@@ -100,27 +100,23 @@ public class LessonActivity extends BaseActivity {
     }
 
     @OnClick(R.id.price_item_view)
-    void onPriceClick(View view) { // TODO: 10.12.2017 editdialog to base activity
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_edit_text, null);
-        EditText editText = dialogView.findViewById(R.id.edit_text);
-        String formattedPrice = FormatUtils.formatPrice(mLesson.getPrice());
-        editText.setText(formattedPrice);
-        editText.setSelection(editText.getText().length());
-
-        DialogInterface.OnClickListener listener = (di, i) -> {
-            BigDecimal price = FormatUtils.formatPrice(editText.getText().toString());
+    void onPriceClick(View view) {
+        String title = getString(R.string.dialog_lesson_price_title);
+        String text = FormatUtils.formatPrice(mLesson.getPrice());
+        int inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL;
+        EditTextDialog.OnOkListener okListener = (s) -> {
+            BigDecimal price = FormatUtils.formatPrice(s);
             mPriceItemView.setSummary(price.toPlainString());
             mLesson.setPrice(price.doubleValue());
         };
 
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.dialog_lesson_price_title)
-                .setPositiveButton(android.R.string.ok, listener)
-                .setNegativeButton(android.R.string.cancel, null)
-                .setView(dialogView)
-                .create().show();
+        new EditTextDialog()
+                .setTitle(title)
+                .setText(text)
+                .setInputType(inputType)
+                .setOnOkListener(okListener)
+                .show(getSupportFragmentManager(), "dialog");
     }
-
 
 
     @OnClick(R.id.fab)
@@ -131,14 +127,7 @@ public class LessonActivity extends BaseActivity {
         finish();
     }
 
-    private void showItemsDialog(String title, CharSequence[] items,
-                                 DialogInterface.OnClickListener listener) {
-        new AlertDialog.Builder(this)
-                .setTitle(title)
-                .setItems(items, listener)
-                .create()
-                .show();
-    }
+
 
     public static Intent newIntent(Context context) {
         return new Intent(context, LessonActivity.class);

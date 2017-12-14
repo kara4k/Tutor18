@@ -115,13 +115,13 @@
             app:title_text="Перенесено с:"/>
 
         <com.kara4k.tutor18.view.custom.ItemView
-            android:id="@+id/is_held_item_view"
+            android:id="@+id/state_item_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:icon_is_visible="true"
             app:icon_src="@drawable/ic_help_outline_black_24dp"
             app:summary_text="Перенесено"
-            app:title_text="Проведено:"/>
+            app:title_text="Состояние:"/>
 
         <LinearLayout
             android:id="@+id/rescheduled_to_layout"
@@ -136,7 +136,7 @@
                 android:layout_weight="1"
                 app:icon_is_visible="true"
                 app:icon_src="@drawable/ic_event_black_24dp"
-                app:summary_text="24.12.2018"
+                app:summary_text=""
                 app:title_text="Дата:"/>
 
             <com.kara4k.tutor18.view.custom.ItemView
@@ -146,7 +146,7 @@
                 android:layout_weight="1"
                 app:icon_is_visible="true"
                 app:icon_src="@drawable/ic_access_time_black_24dp"
-                app:summary_text="18:00"
+                app:summary_text=""
                 app:title_text="Время:"/>
         </LinearLayout>
 

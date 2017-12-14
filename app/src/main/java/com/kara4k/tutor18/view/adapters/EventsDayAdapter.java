@@ -84,7 +84,7 @@ public class EventsDayAdapter extends Adapter<Event, EventsDayAdapter.EventHolde
         }
 
         private int getHeldImageRes(Event event) { // TODO: 09.12.2017
-            switch (event.getHeld()) {
+            switch (event.getState()) {
                 case Event.UNDEFINED:
 
             }

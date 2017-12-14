@@ -1,8 +1,13 @@
 package com.kara4k.tutor18.view.activities;
 
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -13,6 +18,7 @@ import com.kara4k.tutor18.model.Event;
 import com.kara4k.tutor18.other.FormatUtils;
 import com.kara4k.tutor18.presenter.EventDetailsPresenter;
 import com.kara4k.tutor18.view.EventDetailsIF;
+import com.kara4k.tutor18.view.custom.EditTextDialog;
 import com.kara4k.tutor18.view.custom.ItemView;
 
 import java.util.Calendar;
@@ -27,6 +33,7 @@ import io.reactivex.subjects.Subject;
 public class EventDetails extends BaseActivity implements EventDetailsIF {
 
     public static final String EVENT_ID = "event_id";
+    public static final String EMPTY = "";
 
     @BindView(R.id.time_item_view)
     ItemView mTimeItemView;
@@ -44,8 +51,8 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
     ItemView mPaymentItemView;
     @BindView(R.id.expected_item_view)
     ItemView mExpectedItemView;
-    @BindView(R.id.is_held_item_view)
-    ItemView mIsHeldItemView;
+    @BindView(R.id.state_item_view)
+    ItemView mStateItemView;
     @BindView(R.id.rescheduled_to_layout)
     LinearLayout mReschToLayout;
     @BindView(R.id.rescheduled_to_day_item_view)
@@ -107,14 +114,14 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
         mSubjectItemView.setSummary(event.getSubjects());
         mNoteItemView.setSummary(event.getNote());
         setPayment(event);
-        setHeld(event);
+        setState(event);
 
     }
 
     private void setPayment(Event event) {
         if (event.isPayment()) {
             String expected = FormatUtils.formatPrice(event.getExpectedPrice());
-            String current = FormatUtils.formatPrice(event.getMonthPrice());
+            String current = FormatUtils.formatPrice(event.getPrice());
             String expectedPrice = getString(R.string.event_price, expected);
             String currentPrice = getString(R.string.event_price, current);
             boolean isPaid = event.isPaid();
@@ -128,33 +135,40 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
         }
     }
 
-    private void setHeld(Event event) {
-        switch (event.getIsHeld()) {
+    private void setState(Event event) {
+        switch (event.getState()) {  // TODO: 14.12.2017 refact
             case Event.UNDEFINED:
-                mIsHeldItemView.setSummary("");
-                mIsHeldItemView.setIconImageResource(R.drawable.ic_help_outline_black_24dp);
+                String undefined = getString(R.string.array_event_undefined);
+
+                mStateItemView.setSummary(undefined);
+                mStateItemView.setIconImageResource(R.drawable.ic_help_outline_black_24dp);
                 mReschToLayout.setVisibility(View.GONE);
                 mReschFromItemView.setVisibility(View.GONE);
                 break;
             case Event.HELD:
-                mIsHeldItemView.setSummary("Проведено");
-                mIsHeldItemView.setIconImageResource(R.drawable.ic_done_all_black_24dp);
+                String wasHeld = getString(R.string.array_event_held);
+
+                mStateItemView.setSummary(wasHeld);
+                mStateItemView.setIconImageResource(R.drawable.ic_done_all_black_24dp);
                 mReschFromItemView.setVisibility(View.GONE);
                 mReschToLayout.setVisibility(View.GONE);
                 break;
             case Event.NOT_HELD:
-                mIsHeldItemView.setSummary("Отменено");
-                mIsHeldItemView.setIconImageResource(R.drawable.ic_highlight_off_red_50_24dp);
+                String wasNotHeld = getString(R.string.array_event_not_held);
+
+                mStateItemView.setSummary(wasNotHeld);
+                mStateItemView.setIconImageResource(R.drawable.ic_highlight_off_red_50_24dp);
                 mReschFromItemView.setVisibility(View.GONE);
                 mReschToLayout.setVisibility(View.GONE);
                 break;
             case Event.RESCHEDULED:
                 Calendar calendar = Calendar.getInstance();
-                mReschToLayout.setVisibility(View.VISIBLE);
+                String rescheduled = getString(R.string.array_event_rescheduled);
 
-                mIsHeldItemView.setSummary("Перенесено на:");
-                if (mEvent.getRescheduledToId() != 0) {
-                    mIsHeldItemView.setIconImageResource(R.drawable.ic_redo_black_24dp);
+                mReschToLayout.setVisibility(View.VISIBLE);
+                mStateItemView.setSummary(rescheduled);
+                if (mEvent.getRescheduledToId() != null) {
+                    mStateItemView.setIconImageResource(R.drawable.ic_redo_black_24dp);
                     mReschFromItemView.setVisibility(View.GONE);
 
                     calendar.setTimeInMillis(mEvent.getRescheduledToId());
@@ -162,8 +176,12 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
                     String time = FormatUtils.formatCalTime(calendar);
                     mReschToDayItemView.setSummary(day);
                     mReschToTimeItemView.setSummary(time);
+                } else {
+                    mReschToDayItemView.setSummary(EMPTY);
+                    mReschToTimeItemView.setSummary(EMPTY);
                 }
-                if (mEvent.getRescheduledFromId() != 0) {
+
+                if (mEvent.getRescheduledFromId() != null) {
                     mReschFromItemView.setVisibility(View.VISIBLE);
                     calendar.setTimeInMillis(mEvent.getRescheduledFromId());
                     String dateTime = FormatUtils.formatCalDateTime(calendar);
@@ -174,9 +192,125 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
     }
 
     @OnClick(R.id.subject_item_view)
-    void onTimeClicked() {
-        mEvent.setSubjects("opop");
+    void onSubjectClicked() {
+        String title = getString(R.string.dialog_subjects_title);
+        String text = mEvent.getSubjects();
+        EditTextDialog.OnOkListener listener = (s) -> {
+            mEvent.setSubjects(s);
+            mEventObservable.onNext(mEvent);
+        };
+
+        new EditTextDialog()
+                .setTitle(title)
+                .setText(text)
+                .setOnOkListener(listener)
+                .show(getSupportFragmentManager(), "subjects");
+    }
+
+    @OnClick(R.id.note_item_view)
+    void onNoteClicked() {
+        String title = getString(R.string.dialog_note_title);
+        String text = mEvent.getNote();
+        EditTextDialog.OnOkListener listener = (s) -> {
+            mEvent.setNote(s);
+            mEventObservable.onNext(mEvent);
+        };
+
+        new EditTextDialog()
+                .setTitle(title)
+                .setText(text)
+                .setOnOkListener(listener)
+                .show(getSupportFragmentManager(), "note");
+    }
+
+    @OnClick(R.id.payment_item_view)
+    void onPaymentClick(ItemView itemView) {
+        mEvent.setIsPaid(!itemView.isChecked());
         mEventObservable.onNext(mEvent);
+    }
+
+    @OnClick(R.id.state_item_view)
+    void onHeldClicked() {
+        String title = getString(R.string.dialog_state_title);
+        String[] dialogItems = getResources().getStringArray(R.array.event_held);
+        DialogInterface.OnClickListener listener = (dialogInterface, i) -> {
+            mEvent.setState(i);
+            if (i != Event.RESCHEDULED) mEvent.setRescheduledToId(null);
+            mEventObservable.onNext(mEvent);
+        };
+
+        showItemsDialog(title, dialogItems, listener);
+    }
+
+    @OnClick(R.id.rescheduled_to_day_item_view)
+    void onReschToDayClick() {
+        Calendar calendar = Calendar.getInstance();
+
+        if (mEvent.getRescheduledToId() != null) {
+            calendar.setTimeInMillis(mEvent.getRescheduledToId());
+        }
+
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog.OnDateSetListener listener = (datePicker, i, i1, i2) -> {
+            calendar.set(i, i1, i2);
+            mEvent.setRescheduledToId(calendar.getTimeInMillis());
+            mEventObservable.onNext(mEvent);
+        };
+
+        new DatePickerDialog(this, R.style.PickerStyle, listener, year, month, day).show();
+    }
+
+    @OnClick(R.id.rescheduled_to_time_item_view)
+    void onReschToTimeClick() {
+        Calendar calendar = Calendar.getInstance();
+
+        if (mEvent.getRescheduledToId() != null) {
+            calendar.setTimeInMillis(mEvent.getRescheduledToId());
+        }
+
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutes = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog.OnTimeSetListener listener = (timePicker, i, i1) -> {
+            calendar.set(Calendar.HOUR_OF_DAY, i);
+            calendar.set(Calendar.MINUTE, i1);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+
+            mEvent.setRescheduledToId(calendar.getTimeInMillis());
+            mEventObservable.onNext(mEvent);
+        };
+
+        new TimePickerDialog(this, R.style.PickerStyle, listener,
+                hour, minutes, true).show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_event_details, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_save_event:
+                mPresenter.onSaveEvent(mEvent);
+                return true;
+            case R.id.menu_item_delete_event:
+                String title = getString(R.string.dialog_delete_event_title);
+                String message = getString(R.string.dialog_delete_event_message);
+                DialogInterface.OnClickListener okListener = (dialogInterface, i)
+                        -> mPresenter.onDeleteEvent(mEvent);
+
+                showConfirmDialog(title, message, okListener);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void onError(Throwable throwable) {

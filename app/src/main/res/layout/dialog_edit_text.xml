@@ -10,5 +10,5 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dimen_default"
         android:layout_marginRight="@dimen/dimen_default"
-        android:inputType="numberDecimal"/>
+        />
 </LinearLayout>

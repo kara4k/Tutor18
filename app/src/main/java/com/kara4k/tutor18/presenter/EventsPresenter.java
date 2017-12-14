@@ -135,7 +135,7 @@ public class EventsPresenter implements Presenter {
                 event.setId(calcEventId(startCal, lesson));
                 event.setPersonId(lesson.getPersonId());
                 event.setLessonId(lesson.getId());
-                event.setIsHeld(Event.UNDEFINED);
+                event.setState(Event.UNDEFINED);
                 setPayment(startCal, lesson, event);
                 events.add(event);
             }

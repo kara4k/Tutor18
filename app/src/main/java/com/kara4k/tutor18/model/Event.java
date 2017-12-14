@@ -13,10 +13,10 @@ import java.io.Serializable;
 public class Event implements Serializable {
 
     public static final long serialVersionUID = 40L;
-    public static final int UNDEFINED = -1;
-    public static final int NOT_HELD = 0;
+    public static final int UNDEFINED = 0;
     public static final int HELD = 1;
-    public static final int RESCHEDULED = 2;
+    public static final int NOT_HELD = 2;
+    public static final int RESCHEDULED = 3;
 
     @Id
     Long id;
@@ -26,7 +26,7 @@ public class Event implements Serializable {
     Long lessonId;
     @ToOne(joinProperty = "lessonId")
     Lesson lesson;
-    int isHeld;
+    int state;
     Long rescheduledToId;
     Long rescheduledFromId;
     boolean isPayment;
@@ -41,15 +41,15 @@ public class Event implements Serializable {
     /** Used for active entity operations. */
     @Generated(hash = 1542254534)
     private transient EventDao myDao;
-    @Generated(hash = 1443324403)
-    public Event(Long id, Long personId, Long lessonId, int isHeld,
+    @Generated(hash = 164549064)
+    public Event(Long id, Long personId, Long lessonId, int state,
             Long rescheduledToId, Long rescheduledFromId, boolean isPayment,
             boolean isPaid, double expectedPrice, double price, String subjects,
             String note) {
         this.id = id;
         this.personId = personId;
         this.lessonId = lessonId;
-        this.isHeld = isHeld;
+        this.state = state;
         this.rescheduledToId = rescheduledToId;
         this.rescheduledFromId = rescheduledFromId;
         this.isPayment = isPayment;
@@ -80,11 +80,11 @@ public class Event implements Serializable {
     public void setLessonId(Long lessonId) {
         this.lessonId = lessonId;
     }
-    public int getHeld() {
-        return this.isHeld;
+    public int getState() {
+        return this.state;
     }
-    public void setIsHeld(int isHeld) {
-        this.isHeld = isHeld;
+    public void setState(int state) {
+        this.state = state;
     }
     public Long getRescheduledToId() {
         return this.rescheduledToId;
@@ -116,7 +116,7 @@ public class Event implements Serializable {
     public void setExpectedPrice(double expectedPrice) {
         this.expectedPrice = expectedPrice;
     }
-    public double getMonthPrice() {
+    public double getPrice() {
         return this.price;
     }
     public void setPrice(double price) {
@@ -231,18 +231,13 @@ public class Event implements Serializable {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getEventDao() : null;
     }
-    public int getIsHeld() {
-        return this.isHeld;
-    }
     public boolean getIsPayment() {
         return this.isPayment;
     }
     public boolean getIsPaid() {
         return this.isPaid;
     }
-    public double getPrice() {
-        return this.price;
-    }
+  
    
 
 }

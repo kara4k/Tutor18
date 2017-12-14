@@ -29,4 +29,16 @@
     <string name="event_duration">%1$d min</string>
     <string name="event_price">$ %1$s</string>
     <string name="menu_item_select_date">Select date</string>
+    <string name="dialog_subjects_title">Subjects:</string>
+    <string name="dialog_note_title">Note:</string>
+    <string name="array_event_undefined">Undefined</string>
+    <string name="array_event_held">Was held</string>
+    <string name="array_event_not_held">Was not held</string>
+    <string name="array_event_rescheduled">Rescheduled</string>
+    <string name="dialog_state_title">State:</string>
+    <string name="event_rescheduled_to">Перенесено на:</string>
+    <string name="menu_item_save_event">Save event</string>
+    <string name="menu_item_delete_event">Delete event</string>
+    <string name="dialog_delete_event_title">Delete event</string>
+    <string name="dialog_delete_event_message">Are you sure to delete current event?</string>
 </resources>

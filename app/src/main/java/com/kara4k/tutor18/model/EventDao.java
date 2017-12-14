@@ -28,7 +28,7 @@ public class EventDao extends AbstractDao<Event, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property PersonId = new Property(1, Long.class, "personId", false, "PERSON_ID");
         public final static Property LessonId = new Property(2, Long.class, "lessonId", false, "LESSON_ID");
-        public final static Property IsHeld = new Property(3, int.class, "isHeld", false, "IS_HELD");
+        public final static Property State = new Property(3, int.class, "state", false, "STATE");
         public final static Property RescheduledToId = new Property(4, Long.class, "rescheduledToId", false, "RESCHEDULED_TO_ID");
         public final static Property RescheduledFromId = new Property(5, Long.class, "rescheduledFromId", false, "RESCHEDULED_FROM_ID");
         public final static Property IsPayment = new Property(6, boolean.class, "isPayment", false, "IS_PAYMENT");
@@ -58,7 +58,7 @@ public class EventDao extends AbstractDao<Event, Long> {
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"PERSON_ID\" INTEGER," + // 1: personId
                 "\"LESSON_ID\" INTEGER," + // 2: lessonId
-                "\"IS_HELD\" INTEGER NOT NULL ," + // 3: isHeld
+                "\"STATE\" INTEGER NOT NULL ," + // 3: state
                 "\"RESCHEDULED_TO_ID\" INTEGER," + // 4: rescheduledToId
                 "\"RESCHEDULED_FROM_ID\" INTEGER," + // 5: rescheduledFromId
                 "\"IS_PAYMENT\" INTEGER NOT NULL ," + // 6: isPayment
@@ -93,7 +93,7 @@ public class EventDao extends AbstractDao<Event, Long> {
         if (lessonId != null) {
             stmt.bindLong(3, lessonId);
         }
-        stmt.bindLong(4, entity.getIsHeld());
+        stmt.bindLong(4, entity.getState());
  
         Long rescheduledToId = entity.getRescheduledToId();
         if (rescheduledToId != null) {
@@ -138,7 +138,7 @@ public class EventDao extends AbstractDao<Event, Long> {
         if (lessonId != null) {
             stmt.bindLong(3, lessonId);
         }
-        stmt.bindLong(4, entity.getIsHeld());
+        stmt.bindLong(4, entity.getState());
  
         Long rescheduledToId = entity.getRescheduledToId();
         if (rescheduledToId != null) {
@@ -182,7 +182,7 @@ public class EventDao extends AbstractDao<Event, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // personId
             cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2), // lessonId
-            cursor.getInt(offset + 3), // isHeld
+            cursor.getInt(offset + 3), // state
             cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4), // rescheduledToId
             cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5), // rescheduledFromId
             cursor.getShort(offset + 6) != 0, // isPayment
@@ -200,7 +200,7 @@ public class EventDao extends AbstractDao<Event, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setPersonId(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
         entity.setLessonId(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
-        entity.setIsHeld(cursor.getInt(offset + 3));
+        entity.setState(cursor.getInt(offset + 3));
         entity.setRescheduledToId(cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4));
         entity.setRescheduledFromId(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
         entity.setIsPayment(cursor.getShort(offset + 6) != 0);

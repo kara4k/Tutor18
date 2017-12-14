@@ -64,6 +64,15 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .create().show();
     }
 
+    protected void showItemsDialog(String title, CharSequence[] items,
+                                   DialogInterface.OnClickListener listener) {
+        new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setItems(items, listener)
+                .create()
+                .show();
+    }
+
     protected void showToast(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }

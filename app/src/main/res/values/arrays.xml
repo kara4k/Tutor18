@@ -9,4 +9,12 @@
         <item>120</item>
     </string-array>
 
+    <string-array name="event_held"
+                  tools:ignore="MissingTranslation">
+        <item>@string/array_event_undefined</item>
+        <item>@string/array_event_held</item>
+        <item>@string/array_event_not_held</item>
+        <item>@string/array_event_rescheduled</item>
+    </string-array>
+
 </resources>

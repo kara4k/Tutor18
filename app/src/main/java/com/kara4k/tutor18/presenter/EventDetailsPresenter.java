@@ -31,6 +31,14 @@ public class EventDetailsPresenter implements Presenter {
         }
     }
 
+    public void onSaveEvent(Event event) {
+
+    }
+
+    public void onDeleteEvent(Event event) {
+
+    }
+
     @Override
     public void onDestroy() {
 
