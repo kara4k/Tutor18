@@ -94,14 +94,25 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
     }
 
     @Override
+    public void showMessage(String message) {
+        showToast(message);
+    }
+
+    @Override
     public void showDetails(Event event) {
         mEvent = event;
         mEventObservable.subscribe(this::updateUI, this::onError);
         mEventObservable.onNext(mEvent);
     }
 
+    @Override
+    public void closeView() {
+        finish();
+    }
+
     private void updateUI(Event event) {
-        String time = FormatUtils.formatTime(event.getLesson());
+        String time = FormatUtils.formatTime(event);
+
         String name = FormatUtils.formatName(event.getPerson());
         String duration = getString(R.string.event_duration, event.getLesson().getDuration());
         String price = FormatUtils.formatPrice(event.getLesson().getPrice());
@@ -114,6 +125,7 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
         mSubjectItemView.setSummary(event.getSubjects());
         mNoteItemView.setSummary(event.getNote());
         setPayment(event);
+        setRescheduledFrom(event);
         setState(event);
 
     }
@@ -136,21 +148,19 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
     }
 
     private void setState(Event event) {
-        switch (event.getState()) {  // TODO: 14.12.2017 refact
+        switch (event.getState()) {
             case Event.UNDEFINED:
                 String undefined = getString(R.string.array_event_undefined);
 
                 mStateItemView.setSummary(undefined);
                 mStateItemView.setIconImageResource(R.drawable.ic_help_outline_black_24dp);
                 mReschToLayout.setVisibility(View.GONE);
-                mReschFromItemView.setVisibility(View.GONE);
                 break;
             case Event.HELD:
                 String wasHeld = getString(R.string.array_event_held);
 
                 mStateItemView.setSummary(wasHeld);
                 mStateItemView.setIconImageResource(R.drawable.ic_done_all_black_24dp);
-                mReschFromItemView.setVisibility(View.GONE);
                 mReschToLayout.setVisibility(View.GONE);
                 break;
             case Event.NOT_HELD:
@@ -158,36 +168,45 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
 
                 mStateItemView.setSummary(wasNotHeld);
                 mStateItemView.setIconImageResource(R.drawable.ic_highlight_off_red_50_24dp);
-                mReschFromItemView.setVisibility(View.GONE);
                 mReschToLayout.setVisibility(View.GONE);
                 break;
             case Event.RESCHEDULED:
-                Calendar calendar = Calendar.getInstance();
                 String rescheduled = getString(R.string.array_event_rescheduled);
 
                 mReschToLayout.setVisibility(View.VISIBLE);
                 mStateItemView.setSummary(rescheduled);
+
                 if (mEvent.getRescheduledToId() != null) {
+                    Calendar calendar = Calendar.getInstance();
+
                     mStateItemView.setIconImageResource(R.drawable.ic_redo_black_24dp);
                     mReschFromItemView.setVisibility(View.GONE);
 
                     calendar.setTimeInMillis(mEvent.getRescheduledToId());
                     String day = FormatUtils.formatCalDay(calendar);
                     String time = FormatUtils.formatCalTime(calendar);
+
                     mReschToDayItemView.setSummary(day);
                     mReschToTimeItemView.setSummary(time);
                 } else {
                     mReschToDayItemView.setSummary(EMPTY);
                     mReschToTimeItemView.setSummary(EMPTY);
                 }
-
-                if (mEvent.getRescheduledFromId() != null) {
-                    mReschFromItemView.setVisibility(View.VISIBLE);
-                    calendar.setTimeInMillis(mEvent.getRescheduledFromId());
-                    String dateTime = FormatUtils.formatCalDateTime(calendar);
-                    mReschFromItemView.setSummary(dateTime);
-                }
                 break;
+        }
+    }
+
+    private void setRescheduledFrom(Event event) {
+        if (event.getRescheduledFromId() != null) {
+            Calendar calendar = Calendar.getInstance();
+
+            mReschFromItemView.setVisibility(View.VISIBLE);
+            calendar.setTimeInMillis(event.getRescheduledFromId());
+
+            String dateTime = FormatUtils.formatCalDateTime(calendar);
+            mReschFromItemView.setSummary(dateTime);
+        } else {
+            mReschFromItemView.setVisibility(View.GONE);
         }
     }
 

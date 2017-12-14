@@ -58,7 +58,7 @@ public class EventsDayAdapter extends Adapter<Event, EventsDayAdapter.EventHolde
             Lesson lesson = mItem.getLesson();
             Person person = mItem.getPerson();
 
-            mTimeTextView.setText(FormatUtils.formatTime(lesson));
+            mTimeTextView.setText(FormatUtils.formatTime(mItem));
             mNameTextView.setText(String.format("%s %s", person.getFirstName(), person.getName()));
 
             String lessonDuration = mContext.getString(

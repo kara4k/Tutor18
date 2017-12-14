@@ -6,4 +6,8 @@ import com.kara4k.tutor18.model.Event;
 public interface EventDetailsIF extends ViewIF {
 
     void showDetails(Event event);
+
+    void closeView();
+
+    void showMessage(String message);
 }

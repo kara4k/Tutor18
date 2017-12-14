@@ -3,6 +3,7 @@ package com.kara4k.tutor18.other;
 
 import android.util.SparseIntArray;
 
+import com.kara4k.tutor18.model.Event;
 import com.kara4k.tutor18.model.Lesson;
 import com.kara4k.tutor18.model.Person;
 
@@ -66,6 +67,24 @@ public class FormatUtils {
                 .toPlainString();
     }
 
+    public static String formatTime(Event event){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(event.getId());
+
+        int startHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int startMin = calendar.get(Calendar.MINUTE);
+        String startTime = formatTime(startHour, startMin);
+
+        int duration = event.getLesson().getDuration();
+        calendar.add(Calendar.MINUTE, duration);
+
+        int endHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int endMin = calendar.get(Calendar.MINUTE);
+        String endTime = formatTime(endHour, endMin);
+
+        return String.format("%s - %s", startTime, endTime);
+    }
+
     public static String formatTime(Lesson lesson) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, lesson.getStartHour());
@@ -86,7 +105,7 @@ public class FormatUtils {
     public static String formatCalDateTime(Calendar calendar) {
         String date = formatCalDay(calendar);
         String time = formatCalTime(calendar);
-        return String.format("%s %s", date, time);
+        return String.format("%s - %s", date, time);
     }
 
     public static String formatCalDay(Calendar calendar) {
