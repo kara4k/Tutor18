@@ -10,4 +10,6 @@ public interface EventDetailsIF extends ViewIF {
     void closeView();
 
     void showMessage(String message);
+
+    void onUpdateEvent();
 }

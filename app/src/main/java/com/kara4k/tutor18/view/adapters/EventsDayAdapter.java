@@ -1,10 +1,12 @@
 package com.kara4k.tutor18.view.adapters;
 
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kara4k.tutor18.R;
@@ -45,8 +47,14 @@ public class EventsDayAdapter extends Adapter<Event, EventsDayAdapter.EventHolde
         ImageView mPaymentImageView;
         @BindView(R.id.month_price_text_view)
         TextView mMonthPriceTextView;
-        @BindView(R.id.held_image_view)
-        ImageView mHeldImageView;
+        @BindView(R.id.state_image_view)
+        ImageView mStateImageView;
+        @BindView(R.id.payment_layout)
+        LinearLayout mPaymentLayout;
+        @BindView(R.id.rescheduled_from_image_view)
+        ImageView mReschFromImageView;
+        @BindView(R.id.subjects_text_view)
+        TextView mSubjectsTextView;
 
         public EventHolder(View itemView) {
             super(itemView);
@@ -55,11 +63,12 @@ public class EventsDayAdapter extends Adapter<Event, EventsDayAdapter.EventHolde
         @Override
         public void onBind(Event event) {
             super.onBind(event);
-            Lesson lesson = mItem.getLesson();
-            Person person = mItem.getPerson();
+            Lesson lesson = event.getLesson();
+            Person person = event.getPerson();
 
-            mTimeTextView.setText(FormatUtils.formatTime(mItem));
+            mTimeTextView.setText(FormatUtils.formatTime(event));
             mNameTextView.setText(String.format("%s %s", person.getFirstName(), person.getName()));
+            mSubjectsTextView.setText(event.getSubjects());
 
             String lessonDuration = mContext.getString(
                     R.string.event_duration, lesson.getDuration());
@@ -69,26 +78,47 @@ public class EventsDayAdapter extends Adapter<Event, EventsDayAdapter.EventHolde
             String lessonPrice = mContext.getString(R.string.event_price, price);
             mPriceTextView.setText(lessonPrice);
 
+            int visibility = event.getRescheduledFromId() == null ? View.GONE : View.VISIBLE;
+            mReschFromImageView.setVisibility(visibility);
+
+            setPayment(event);
+
+            int stateIconRes = getStateIconRes(event);
+            mStateImageView.setImageResource(stateIconRes);
+        }
+
+        private void setPayment(Event event) {
             if (event.isPayment()) {
-                String expectedPrice = FormatUtils.formatPrice(event.getExpectedPrice());
+                String monthPrice = FormatUtils.formatPrice(event.getPrice());
 
-                mPaymentImageView.setVisibility(View.VISIBLE);
-                mMonthPriceTextView.setVisibility(View.VISIBLE);
-                mMonthPriceTextView.setText(expectedPrice);
+                mPaymentLayout.setVisibility(View.VISIBLE);
+                mMonthPriceTextView.setText(monthPrice);
+                setPaymentColors(event);
             } else {
-                mPaymentImageView.setVisibility(View.GONE);
-                mMonthPriceTextView.setVisibility(View.GONE);
+                mPaymentLayout.setVisibility(View.GONE);
             }
+        }
 
+        private void setPaymentColors(Event event) {
+            int color = event.isPaid() ? Color.BLACK : Color.RED;
+            mMonthPriceTextView.setTextColor(color);
+            mPaymentImageView.setColorFilter(color);
 
         }
 
-        private int getHeldImageRes(Event event) { // TODO: 09.12.2017
+        private int getStateIconRes(Event event) {
             switch (event.getState()) {
+                case Event.HELD:
+                    return R.drawable.ic_done_all_black_18dp;
+                case Event.NOT_HELD:
+                    return R.drawable.ic_highlight_off_red_50_18dp;
+                case Event.RESCHEDULED:
+                    return R.drawable.ic_redo_black_24dp;
                 case Event.UNDEFINED:
-
+                    return R.drawable.ic_help_outline_black_18dp;
+                default:
+                    return R.drawable.ic_help_outline_black_18dp;
             }
-            return 0;
         }
 
         @Override

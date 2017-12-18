@@ -3,6 +3,7 @@ package com.kara4k.tutor18.view.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -47,11 +48,16 @@ public abstract class BaseListFragment<T> extends Fragment implements ListViewIF
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recycler_view, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(getLayoutManager());
         recyclerView.setAdapter(mAdapter = getAdapter());
 
         ButterKnife.bind(this, view);
         return view;
+    }
+
+    @NonNull
+    protected RecyclerView.LayoutManager getLayoutManager() {
+        return new LinearLayoutManager(getContext());
     }
 
     @Override

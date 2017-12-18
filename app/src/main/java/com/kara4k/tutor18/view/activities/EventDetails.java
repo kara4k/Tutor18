@@ -99,6 +99,11 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
     }
 
     @Override
+    public void onUpdateEvent() {
+        mEventObservable.onNext(mEvent);
+    }
+
+    @Override
     public void showDetails(Event event) {
         mEvent = event;
         mEventObservable.subscribe(this::updateUI, this::onError);
@@ -112,7 +117,6 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
 
     private void updateUI(Event event) {
         String time = FormatUtils.formatTime(event);
-
         String name = FormatUtils.formatName(event.getPerson());
         String duration = getString(R.string.event_duration, event.getLesson().getDuration());
         String price = FormatUtils.formatPrice(event.getLesson().getPrice());
@@ -249,13 +253,14 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
     }
 
     @OnClick(R.id.state_item_view)
-    void onHeldClicked() {
+    void onStateClicked() {
         String title = getString(R.string.dialog_state_title);
         String[] dialogItems = getResources().getStringArray(R.array.event_held);
         DialogInterface.OnClickListener listener = (dialogInterface, i) -> {
             mEvent.setState(i);
             if (i != Event.RESCHEDULED) mEvent.setRescheduledToId(null);
-            mEventObservable.onNext(mEvent);
+            mPresenter.onEventStateChange(mEvent);
+//            mEventObservable.onNext(mEvent);
         };
 
         showItemsDialog(title, dialogItems, listener);

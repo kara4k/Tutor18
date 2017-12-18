@@ -14,6 +14,8 @@ import javax.inject.Inject;
 
 public class EventsDayPresenter extends ListPresenter<Event, EventsDayIF> {
 
+    @Inject
+    PriceCalculator mPriceCalculator;
     private EventDao mEventDao;
 
     @Inject
@@ -32,9 +34,41 @@ public class EventsDayPresenter extends ListPresenter<Event, EventsDayIF> {
         long endStamp = CalendarUtils.getDayEnd(calendar);
 
         mEventDao.detachAll();
-        return mEventDao.queryBuilder()
+        return getEvents(startStamp, endStamp);
+    }
+
+    private List<Event> getEvents(long startStamp, long endStamp) {
+        List<Event> events = mEventDao.queryBuilder()
                 .where(EventDao.Properties.Id.between(startStamp, endStamp))
                 .build().list();
+
+        for (Event event : events) {
+            if (event.isPayment()) {
+                setEventPrice(startStamp, endStamp, event);
+            }
+        }
+
+        return events;
+    }
+
+    private void setEventPrice(long startStamp, long endStamp, Event event) {
+        long monthStart;
+        double totalPrice;
+
+        if (event.getRescheduledFromId() == null) {
+            monthStart = CalendarUtils.getMonthStart(startStamp);
+        } else {
+            // TODO: 17.12.2017  recursive check
+            Event unique = mEventDao.queryBuilder().where(EventDao.Properties.Id.eq(event.getRescheduledFromId())).build().unique();
+            if (!unique.getIsPaid() && unique.getRescheduledFromId() == null) {
+
+            }
+
+            monthStart = CalendarUtils.getMonthStart(event.getRescheduledFromId());
+        }
+
+        totalPrice = mPriceCalculator.calculatePrice(event, monthStart, endStamp);
+        event.setPrice(totalPrice);
     }
 
     @Override

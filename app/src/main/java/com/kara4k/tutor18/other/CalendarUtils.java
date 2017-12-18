@@ -20,4 +20,12 @@ public class CalendarUtils {
         calendar.add(Calendar.DAY_OF_MONTH, -1);
         return endStamp;
     }
+
+    public static long getMonthStart(long startStamp) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(startStamp);
+        CalendarUtils.setZeroTime(calendar);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        return calendar.getTimeInMillis();
+    }
 }

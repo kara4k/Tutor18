@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             app:icon_is_visible="true"
             app:icon_src="@drawable/ic_person_black_24dp"
-            app:summary_text="Путин Владимир"
+            app:summary_text=""
             app:title_text="Person"/>
 
         <com.kara4k.tutor18.view.custom.ItemView
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             app:icon_is_visible="true"
             app:icon_src="@drawable/ic_subject_black_24dp"
-            app:summary_text="Знаменатель"
+            app:summary_text=""
             app:title_text="Темы:"/>
 
         <com.kara4k.tutor18.view.custom.ItemView
@@ -67,40 +67,10 @@
             android:layout_height="wrap_content"
             app:icon_is_visible="true"
             app:icon_src="@drawable/ic_note_black_24dp"
-            app:summary_text="Володя, это же знаменатель!!!!"
+            app:summary_text=""
             app:title_text="Дополнительно:"/>
 
-        <LinearLayout
-            android:id="@+id/payment_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-            <View
-                style="@style/Divider"/>
-
-            <com.kara4k.tutor18.view.custom.ItemView
-                android:id="@+id/expected_item_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:icon_is_visible="true"
-                app:icon_src="@drawable/ic_attach_money_black_24dp"
-                app:summary_text="$ 180.00"
-                app:title_text="Ожидаемое:"/>
-
-            <com.kara4k.tutor18.view.custom.ItemView
-                android:id="@+id/payment_item_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                app:check_box_is_visible="true"
-                app:is_checkable="true"
-                app:summary_text="$ 180.00"
-                app:title_text="К оплате:"/>
-
-        </LinearLayout>
 
         <View
             style="@style/Divider"/>
@@ -148,6 +118,38 @@
                 app:icon_src="@drawable/ic_access_time_black_24dp"
                 app:summary_text=""
                 app:title_text="Время:"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/payment_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                style="@style/Divider"/>
+
+            <com.kara4k.tutor18.view.custom.ItemView
+                android:id="@+id/expected_item_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:icon_is_visible="true"
+                app:icon_src="@drawable/ic_attach_money_black_24dp"
+                app:summary_text="$ 180.00"
+                app:title_text="Ожидаемое:"/>
+
+            <com.kara4k.tutor18.view.custom.ItemView
+                android:id="@+id/payment_item_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                app:check_box_is_visible="true"
+                app:is_checkable="true"
+                app:summary_text="$ 180.00"
+                app:title_text="К оплате:"/>
+
         </LinearLayout>
 
 

@@ -3,8 +3,8 @@ package com.kara4k.tutor18.view.activities;
 import android.view.MenuItem;
 
 import com.kara4k.tutor18.R;
-import com.kara4k.tutor18.view.fragments.EventsDayFragment;
 import com.kara4k.tutor18.view.fragments.PersonsListFragment;
+import com.kara4k.tutor18.view.fragments.ViewPagerFragment;
 
 public class MainActivity extends DrawerActivity {
 
@@ -17,14 +17,14 @@ public class MainActivity extends DrawerActivity {
     @Override
     protected void onViewReady() {
         super.onViewReady();
-        setFragment(new PersonsListFragment());
+        setFragment(PersonsListFragment.newInstance());
     }
 
     @Override
     protected void onNavItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_events:
-                setFragment(EventsDayFragment.newInstance());
+                setFragment(ViewPagerFragment.newInstance());
                 break;
             case R.id.nav_persons:
                 setFragment(PersonsListFragment.newInstance());
