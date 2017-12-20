@@ -75,7 +75,7 @@ public class EventsDayAdapter extends Adapter<Event, EventsDayAdapter.EventHolde
             mDurationTextView.setText(lessonDuration);
 
             String price = FormatUtils.formatPrice(lesson.getPrice());
-            String lessonPrice = mContext.getString(R.string.event_price, price);
+            String lessonPrice = mContext.getString(R.string.price, price);
             mPriceTextView.setText(lessonPrice);
 
             int visibility = event.getRescheduledFromId() == null ? View.GONE : View.VISIBLE;
@@ -83,7 +83,7 @@ public class EventsDayAdapter extends Adapter<Event, EventsDayAdapter.EventHolde
 
             setPayment(event);
 
-            int stateIconRes = getStateIconRes(event);
+            int stateIconRes = FormatUtils.getStateIconRes(event);
             mStateImageView.setImageResource(stateIconRes);
         }
 
@@ -104,21 +104,6 @@ public class EventsDayAdapter extends Adapter<Event, EventsDayAdapter.EventHolde
             mMonthPriceTextView.setTextColor(color);
             mPaymentImageView.setColorFilter(color);
 
-        }
-
-        private int getStateIconRes(Event event) {
-            switch (event.getState()) {
-                case Event.HELD:
-                    return R.drawable.ic_done_all_black_18dp;
-                case Event.NOT_HELD:
-                    return R.drawable.ic_highlight_off_red_50_18dp;
-                case Event.RESCHEDULED:
-                    return R.drawable.ic_redo_black_24dp;
-                case Event.UNDEFINED:
-                    return R.drawable.ic_help_outline_black_18dp;
-                default:
-                    return R.drawable.ic_help_outline_black_18dp;
-            }
         }
 
         @Override

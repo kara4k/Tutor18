@@ -1,33 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_default"
-                android:padding="@dimen/dimen_default"
-                android:background="@android:color/darker_gray"
-                xmlns:android="http://schemas.android.com/apk/res/android">
+                android:background="@drawable/holder_bcg"
+                android:padding="@dimen/dimen_default">
+
 
     <TextView
         android:id="@+id/day_text_view"
         android:layout_width="match_parent"
-        android:text="18 декабря"
+        android:layout_height="wrap_content"
+        android:text="понедельник"
         android:textColor="@android:color/black"
-        android:textStyle="bold"
-        android:layout_height="wrap_content"/>
+        android:textStyle="bold"/>
+
     <TextView
-        android:id="@+id/lessons_text_view"
-        android:layout_below="@+id/day_text_view"
-        android:text="3 lessons"
-        android:textColor="@android:color/black"
+        android:id="@+id/date_text_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/day_text_view"
+        android:text="12 января"
+        android:textColor="@android:color/black"/>
+
+    <LinearLayout
+        android:id="@+id/state_layout"
+        android:layout_marginTop="@dimen/text_views_margin"
+        android:layout_below="@id/date_text_view"
+        android:layout_toLeftOf="@id/price_text_view"
+        android:layout_marginRight="@dimen/dimen_default"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="24dp">
+    </LinearLayout>
+
     <TextView
         android:id="@+id/price_text_view"
-        android:text="$ 12.50"
-        android:textColor="@android:color/black"
-        android:layout_alignParentRight="true"
-        android:layout_alignBaseline="@id/lessons_text_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/state_layout"
+        android:layout_alignParentRight="true"
+        android:text="$ 12.50"
+        android:textColor="@android:color/black"/>
 
 
 </RelativeLayout>

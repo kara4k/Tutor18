@@ -13,6 +13,7 @@ import com.kara4k.tutor18.di.modules.ViewModule;
 import com.kara4k.tutor18.model.WeekEvent;
 import com.kara4k.tutor18.presenter.EventsWeekPresenter;
 import com.kara4k.tutor18.view.EventsWeekIF;
+import com.kara4k.tutor18.view.activities.MainActivity;
 import com.kara4k.tutor18.view.adapters.Adapter;
 import com.kara4k.tutor18.view.adapters.EventsWeekAdapter;
 
@@ -30,13 +31,7 @@ public class EventsWeekFragment extends BaseListFragment<WeekEvent> implements E
 
     @Override
     protected Adapter getAdapter() {
-        return new EventsWeekAdapter();
-    }
-
-    @NonNull
-    @Override
-    protected RecyclerView.LayoutManager getLayoutManager() {
-        return new GridLayoutManager(getContext(), 2);
+        return new EventsWeekAdapter(mPresenter);
     }
 
     @Override
@@ -47,6 +42,12 @@ public class EventsWeekFragment extends BaseListFragment<WeekEvent> implements E
                 .build().injectEventsWeekFrag(this);
     }
 
+    @NonNull
+    @Override
+    protected RecyclerView.LayoutManager getLayoutManager() {
+        return new GridLayoutManager(getContext(), 2);
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -55,12 +56,13 @@ public class EventsWeekFragment extends BaseListFragment<WeekEvent> implements E
             long timeStamp = getArguments().getLong(TIMESTAMP);
             mCalendar.setTimeInMillis(timeStamp);
         }
-
-        mPresenter.onStart(mCalendar);
-
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        mPresenter.onStart(mCalendar.getTimeInMillis());
+    }
 
     public static EventsWeekFragment newInstance(long timeStamp) {
         Bundle args = new Bundle();
@@ -68,5 +70,10 @@ public class EventsWeekFragment extends BaseListFragment<WeekEvent> implements E
         EventsWeekFragment fragment = new EventsWeekFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void showDayDetails(long timestamp) {
+        ((MainActivity) getActivity()).showDayDetails(timestamp);
     }
 }

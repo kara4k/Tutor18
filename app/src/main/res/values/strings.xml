@@ -26,7 +26,7 @@
     <string name="dialog_delete_schedule_message">Existing lessons will be deleted in this period</string>
     <string name="message_events_deleted">Deleted events: %1$d</string>
     <string name="event_duration">%1$d min</string>
-    <string name="event_price">$ %1$s</string>
+    <string name="price">$ %1$s</string>
     <string name="menu_item_select_date">Select date</string>
     <string name="dialog_subjects_title">Subjects:</string>
     <string name="dialog_note_title">Note:</string>

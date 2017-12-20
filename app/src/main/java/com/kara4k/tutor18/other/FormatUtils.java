@@ -3,6 +3,7 @@ package com.kara4k.tutor18.other;
 
 import android.util.SparseIntArray;
 
+import com.kara4k.tutor18.R;
 import com.kara4k.tutor18.model.Event;
 import com.kara4k.tutor18.model.Lesson;
 import com.kara4k.tutor18.model.Person;
@@ -132,6 +133,21 @@ public class FormatUtils {
 
     public static int getDayDbValue(int i) {
         return sDayDbValues.get(i);
+    }
+
+    public static int getStateIconRes(Event event) {
+        switch (event.getState()) {
+            case Event.HELD:
+                return R.drawable.ic_done_all_black_24dp;
+            case Event.NOT_HELD:
+                return R.drawable.ic_highlight_off_red_50_24dp;
+            case Event.RESCHEDULED:
+                return R.drawable.ic_redo_black_24dp;
+            case Event.UNDEFINED:
+                return R.drawable.ic_help_outline_black_24dp;
+            default:
+                return R.drawable.ic_help_outline_black_24dp;
+        }
     }
 
     private static void initDayDbValues() {

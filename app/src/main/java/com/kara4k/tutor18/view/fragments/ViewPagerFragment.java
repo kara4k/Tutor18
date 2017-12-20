@@ -20,6 +20,8 @@ import butterknife.BindView;
 
 public class ViewPagerFragment extends BaseFragment {
 
+    public static final String TIMESTAMP = "timestamp";
+
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
     @BindView(R.id.view_pager)
@@ -40,6 +42,10 @@ public class ViewPagerFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (getArguments() != null) {
+            long timestamp = getArguments().getLong(TIMESTAMP);
+            mCalendar.setTimeInMillis(timestamp);
+        }
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.setAdapter(new Adapter(getChildFragmentManager()));
     }
@@ -49,8 +55,10 @@ public class ViewPagerFragment extends BaseFragment {
         switch (item.getItemId()) {
             case R.id.menu_item_select_date:
                 DatePickerDialog.OnDateSetListener listener = (datePicker, i, i1, i2) -> {
+                    int currentItem = mViewPager.getCurrentItem();
                     mCalendar.set(i, i1, i2);
                     mViewPager.setAdapter(new Adapter(getChildFragmentManager()));
+                    mViewPager.setCurrentItem(currentItem);
                 };
 
                 showDatePicker(listener);
@@ -79,9 +87,12 @@ public class ViewPagerFragment extends BaseFragment {
     }
 
     public static ViewPagerFragment newInstance() {
+        return new ViewPagerFragment();
+    }
 
+    public static ViewPagerFragment newInstance(long timeInMillis) {
         Bundle args = new Bundle();
-
+        args.putLong(TIMESTAMP, timeInMillis);
         ViewPagerFragment fragment = new ViewPagerFragment();
         fragment.setArguments(args);
         return fragment;

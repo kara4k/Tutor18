@@ -34,4 +34,8 @@ public class MainActivity extends DrawerActivity {
                 break;
         }
     }
+
+    public void showDayDetails(long timestamp) {
+        setFragment(ViewPagerFragment.newInstance(timestamp));
+    }
 }

@@ -120,7 +120,7 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
         String name = FormatUtils.formatName(event.getPerson());
         String duration = getString(R.string.event_duration, event.getLesson().getDuration());
         String price = FormatUtils.formatPrice(event.getLesson().getPrice());
-        String lessonPrice = getString(R.string.event_price, price);
+        String lessonPrice = getString(R.string.price, price);
 
         mTimeItemView.setSummary(time);
         mNameItemView.setSummary(name);
@@ -138,8 +138,8 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
         if (event.isPayment()) {
             String expected = FormatUtils.formatPrice(event.getExpectedPrice());
             String current = FormatUtils.formatPrice(event.getPrice());
-            String expectedPrice = getString(R.string.event_price, expected);
-            String currentPrice = getString(R.string.event_price, current);
+            String expectedPrice = getString(R.string.price, expected);
+            String currentPrice = getString(R.string.price, current);
             boolean isPaid = event.isPaid();
 
             mPaymentLayout.setVisibility(View.VISIBLE);

@@ -2,6 +2,8 @@ package com.kara4k.tutor18.presenter;
 
 
 import com.kara4k.tutor18.model.DaoSession;
+import com.kara4k.tutor18.model.Event;
+import com.kara4k.tutor18.model.EventDao;
 import com.kara4k.tutor18.model.Lesson;
 import com.kara4k.tutor18.model.LessonDao;
 import com.kara4k.tutor18.model.Person;
@@ -27,12 +29,14 @@ public class PersonPresenter implements Presenter, CompletableObserver {
 
     private PersonDao mPersonDao;
     private LessonDao mLessonDao;
+    private EventDao mEventDao;
     private CompositeDisposable mCompositeDisposable;
 
     @Inject
     public PersonPresenter(DaoSession daoSession) {
         mPersonDao = daoSession.getPersonDao();
         mLessonDao = daoSession.getLessonDao();
+        mEventDao = daoSession.getEventDao();
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -71,6 +75,7 @@ public class PersonPresenter implements Presenter, CompletableObserver {
         Completable completable = Completable.fromAction(() -> {
             mPersonDao.delete(person);
             mLessonDao.deleteInTx(queryLessons(person.getId()));
+            mEventDao.deleteInTx(queryEvents(person.getId()));
         });
 
         subscribe(completable, () -> mView.closeView());
@@ -103,6 +108,12 @@ public class PersonPresenter implements Presenter, CompletableObserver {
 
     private List<Lesson> queryLessons(long personId) {
         return mLessonDao.queryBuilder()
+                .where(LessonDao.Properties.PersonId.eq(personId))
+                .build().list();
+    }
+
+    private List<Event> queryEvents(long personId) {
+        return mEventDao.queryBuilder()
                 .where(LessonDao.Properties.PersonId.eq(personId))
                 .build().list();
     }
