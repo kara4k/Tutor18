@@ -4,6 +4,7 @@ package com.kara4k.tutor18.view.fragments;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.kara4k.tutor18.view.custom.ItemView;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class PersonDetailsFragment extends BaseFragment {
 
@@ -113,6 +115,25 @@ public class PersonDetailsFragment extends BaseFragment {
                     break;
             }
             ((PersonActivity) getActivity()).onSavePerson(lesson, mPerson);
+        }
+    }
+
+    @OnClick(R.id.phone_item_view)
+    void onPhoneClick() {
+        Uri phoneUri = Uri.parse("tel:" + mPerson.getPhone());
+        Intent intent = new Intent(Intent.ACTION_DIAL, phoneUri);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.email_item_view)
+    void onEmailClicked() {
+        String[] address = new String[]{mPerson.getEmail()};
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_EMAIL, address);
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivity(intent);
         }
     }
 

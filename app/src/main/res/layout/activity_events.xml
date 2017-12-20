@@ -29,12 +29,16 @@
         <Button
             android:id="@+id/create_date_events_button"
             android:text="Create"
+            android:background="@color/colorPrimary"
             android:layout_weight="1"
+            android:layout_marginRight="@dimen/text_views_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <Button
             android:id="@+id/delete_date_events_button"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="@dimen/text_views_margin"
+            android:background="@color/colorPrimary"
             android:layout_weight="1"
             android:text="Delete"
             android:layout_height="wrap_content"/>

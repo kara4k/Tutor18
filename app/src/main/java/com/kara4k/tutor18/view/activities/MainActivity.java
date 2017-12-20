@@ -17,7 +17,7 @@ public class MainActivity extends DrawerActivity {
     @Override
     protected void onViewReady() {
         super.onViewReady();
-        setFragment(PersonsListFragment.newInstance());
+        setFragment(ViewPagerFragment.newInstance());
     }
 
     @Override

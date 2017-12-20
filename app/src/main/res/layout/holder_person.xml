@@ -51,22 +51,22 @@
         android:text="#3"/>
 
     <TextView
-        android:id="@+id/phone_text_view"
+        android:id="@+id/note_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name_text_view"
-        android:layout_toLeftOf="@id/email_text_view"
+        android:layout_toLeftOf="@id/lessons_text_view"
         android:layout_toRightOf="@+id/icon_image_view"
         android:text="+375 33 2892821"
         android:paddingBottom="@dimen/dimen_default"
         android:textSize="12sp"/>
 
     <TextView
-        android:id="@+id/email_text_view"
+        android:id="@+id/lessons_text_view"
         android:textSize="12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/phone_text_view"
+        android:layout_alignBaseline="@+id/note_text_view"
         android:layout_marginLeft="@dimen/dimen_default"
         android:layout_alignParentRight="true"
         android:layout_below="@id/grade_text_view"
