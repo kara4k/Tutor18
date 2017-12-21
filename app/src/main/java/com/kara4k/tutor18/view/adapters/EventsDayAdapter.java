@@ -88,15 +88,21 @@ public class EventsDayAdapter extends Adapter<Event, EventsDayAdapter.EventHolde
         }
 
         private void setPayment(Event event) {
-            if (event.isPayment()) {
-                String monthPrice = FormatUtils.formatPrice(event.getPrice());
+            String currentPrice = FormatUtils.formatPrice(event.getPrice());
 
-                mPaymentLayout.setVisibility(View.VISIBLE);
-                mMonthPriceTextView.setText(monthPrice);
+            if (event.isPayment()) {
+                setIsPaid(currentPrice);
                 setPaymentColors(event);
+            } else if (event.isPaid()) {
+                setIsPaid(currentPrice);
             } else {
                 mPaymentLayout.setVisibility(View.GONE);
             }
+        }
+
+        private void setIsPaid(String currentPrice) {
+            mPaymentLayout.setVisibility(View.VISIBLE);
+            mMonthPriceTextView.setText(currentPrice);
         }
 
         private void setPaymentColors(Event event) {

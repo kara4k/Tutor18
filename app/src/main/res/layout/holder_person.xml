@@ -44,6 +44,7 @@
         android:id="@+id/grade_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
         android:layout_alignBaseline="@+id/first_name_text_view"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/dimen_default"
@@ -58,12 +59,14 @@
         android:layout_toLeftOf="@id/lessons_text_view"
         android:layout_toRightOf="@+id/icon_image_view"
         android:text="+375 33 2892821"
+        android:textColor="@android:color/black"
         android:paddingBottom="@dimen/dimen_default"
         android:textSize="12sp"/>
 
     <TextView
         android:id="@+id/lessons_text_view"
         android:textSize="12sp"
+        android:textColor="@android:color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/note_text_view"

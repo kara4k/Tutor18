@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:background="?attr/selectableItemBackground"
                 android:orientation="vertical">
 
@@ -25,7 +26,7 @@
         android:paddingTop="@dimen/dimen_default"
         android:text="17:00 - 18:00"
         android:textColor="@android:color/black"
-        android:textStyle="bold"/>
+        />
 
     <TextView
         android:id="@+id/name_text_view"
@@ -38,7 +39,7 @@
         android:layout_toRightOf="@+id/icon_image_view"
         android:text="Владимир Путин"
         android:textColor="@android:color/black"
-        android:textStyle="bold"
+
         />
 
     <TextView

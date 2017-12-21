@@ -189,6 +189,10 @@ public class ItemView extends RelativeLayout implements View.OnClickListener {
         this.mClickListener = clickListener;
     }
 
+    public boolean iconIsVisible() {
+        return mIconImageView.getVisibility() == View.VISIBLE;
+    }
+
     public void setChecked(boolean checked) {
         mCheckBox.setChecked(checked);
     }

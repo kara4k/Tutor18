@@ -1,6 +1,8 @@
 package com.kara4k.tutor18.view.adapters;
 
 
+import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +47,8 @@ public class EventsWeekAdapter extends Adapter<WeekEvent, EventsWeekAdapter.DayH
         TextView mPriceTextView;
         @BindView(R.id.state_layout)
         LinearLayout mStateLayout;
+        @BindView(R.id.payment_layout)
+        LinearLayout mPaymentLayout;
 
         public DayHolder(View itemView) {
             super(itemView);
@@ -58,6 +62,7 @@ public class EventsWeekAdapter extends Adapter<WeekEvent, EventsWeekAdapter.DayH
             setDay(weekEvent);
             setDate(weekEvent);
             mStateLayout.removeAllViews();
+            mPaymentLayout.removeAllViews();
 
             if (events.isEmpty()) {
                 mPriceTextView.setVisibility(View.GONE);
@@ -67,10 +72,31 @@ public class EventsWeekAdapter extends Adapter<WeekEvent, EventsWeekAdapter.DayH
                 for (int i = 0; i < events.size(); i++) {
                     Event event = events.get(i);
                     addEventState(event);
+                    addEventPayment(event);
                     total = calculatePrice(total, event);
                 }
                 setPrice(total);
             }
+        }
+
+        private void addEventPayment(Event event) {
+            if (event.isPayment()) {
+                ImageView imageView = createPaymentImageView();
+                if (!event.isPaid()) {
+                    imageView.setColorFilter(Color.RED);
+                }
+                mPaymentLayout.addView(imageView);
+            } else if (event.isPaid()) {
+                ImageView imageView = createPaymentImageView();
+                mPaymentLayout.addView(imageView);
+            }
+        }
+
+        @NonNull
+        private ImageView createPaymentImageView() {
+            ImageView imageView = new ImageView(mContext);
+            imageView.setImageResource(R.drawable.ic_attach_money_black_18dp);
+            return imageView;
         }
 
         protected void setPrice(BigDecimal total) {
@@ -97,7 +123,7 @@ public class EventsWeekAdapter extends Adapter<WeekEvent, EventsWeekAdapter.DayH
         protected void setDate(WeekEvent weekEvent) {
             String[] months = DateFormatSymbols.getInstance().getMonths();
             String monthName = months[weekEvent.getMonth()];
-            String date = monthName + ", " + weekEvent.getDayOfMonth();
+            String date = weekEvent.getDayOfMonth() + " " + monthName;
             mDateTextView.setText(date);
         }
 

@@ -62,6 +62,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.ok, okListener)
                 .setNegativeButton(android.R.string.cancel, null)
                 .create().show();
+
+//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT))
     }
 
     protected void showItemsDialog(String title, CharSequence[] items,

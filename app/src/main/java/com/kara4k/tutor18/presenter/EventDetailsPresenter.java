@@ -2,7 +2,6 @@ package com.kara4k.tutor18.presenter;
 
 
 import android.content.Context;
-import android.util.Log;
 
 import com.kara4k.tutor18.R;
 import com.kara4k.tutor18.model.DaoSession;
@@ -54,7 +53,7 @@ public class EventDetailsPresenter implements Presenter {
     }
 
     private void initPaymentVars(Event event) {
-        if (event.isPayment() && event.getState() == Event.HELD) {
+        if (event.getState() == Event.HELD) {
             included = true;
         }
     }
@@ -70,7 +69,6 @@ public class EventDetailsPresenter implements Presenter {
      * @param event current event
      */
     public void onEventStateChange(Event event) {
-        if (event.isPayment()) {
             BigDecimal price = new BigDecimal(event.getPrice());
             BigDecimal lessonPrice = new BigDecimal(event.getLesson().getPrice());
             BigDecimal total;
@@ -84,8 +82,6 @@ public class EventDetailsPresenter implements Presenter {
                 total = price.subtract(lessonPrice);
                 event.setPrice(total.doubleValue());
             }
-        }
-        Log.e("EventDetailsPresenter", "onEventStateChange: " + event.getPrice());
         mView.onUpdateEvent();
     }
 

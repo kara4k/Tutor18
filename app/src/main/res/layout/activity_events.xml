@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background"
+    >
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:orientation="vertical"
@@ -29,7 +35,7 @@
         <Button
             android:id="@+id/create_date_events_button"
             android:text="Create"
-            android:background="@color/colorPrimary"
+            android:background="@android:color/transparent"
             android:layout_weight="1"
             android:layout_marginRight="@dimen/text_views_margin"
             android:layout_width="wrap_content"
@@ -38,9 +44,9 @@
             android:id="@+id/delete_date_events_button"
             android:layout_width="wrap_content"
             android:layout_marginLeft="@dimen/text_views_margin"
-            android:background="@color/colorPrimary"
             android:layout_weight="1"
             android:text="Delete"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 </LinearLayout>
+</ScrollView>

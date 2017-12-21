@@ -64,6 +64,7 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
     @BindView(R.id.payment_layout)
     LinearLayout mPaymentLayout;
 
+
     @Inject
     EventDetailsPresenter mPresenter;
     Subject<Event> mEventObservable = PublishSubject.create();
@@ -135,19 +136,19 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
     }
 
     private void setPayment(Event event) {
-        if (event.isPayment()) {
-            String expected = FormatUtils.formatPrice(event.getExpectedPrice());
-            String current = FormatUtils.formatPrice(event.getPrice());
-            String expectedPrice = getString(R.string.price, expected);
-            String currentPrice = getString(R.string.price, current);
-            boolean isPaid = event.isPaid();
+        String expected = FormatUtils.formatPrice(event.getExpectedPrice());
+        String current = FormatUtils.formatPrice(event.getPrice());
+        String expectedPrice = getString(R.string.price, expected);
+        String currentPrice = getString(R.string.price, current);
+        boolean isPaid = event.isPaid();
 
+        mPaymentItemView.setSummary(currentPrice);
+        mPaymentItemView.setChecked(isPaid);
+        if (event.isPayment()) {
             mPaymentLayout.setVisibility(View.VISIBLE);
             mExpectedItemView.setSummary(expectedPrice);
-            mPaymentItemView.setSummary(currentPrice);
-            mPaymentItemView.setChecked(isPaid);
         } else {
-            mPaymentLayout.setVisibility(View.GONE);
+            mExpectedItemView.setVisibility(View.GONE);
         }
     }
 
@@ -248,7 +249,11 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
 
     @OnClick(R.id.payment_item_view)
     void onPaymentClick(ItemView itemView) {
-        mEvent.setIsPaid(!itemView.isChecked());
+        toggleIsPaid();
+    }
+
+    private void toggleIsPaid() {
+        mEvent.setIsPaid(!mPaymentItemView.isChecked());
         mEventObservable.onNext(mEvent);
     }
 
@@ -260,7 +265,6 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
             mEvent.setState(i);
             if (i != Event.RESCHEDULED) mEvent.setRescheduledToId(null);
             mPresenter.onEventStateChange(mEvent);
-//            mEventObservable.onNext(mEvent);
         };
 
         showItemsDialog(title, dialogItems, listener);

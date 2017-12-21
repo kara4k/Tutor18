@@ -237,7 +237,7 @@ public class Event implements Serializable {
     public boolean getIsPaid() {
         return this.isPaid;
     }
-  
-   
+
+
 
 }

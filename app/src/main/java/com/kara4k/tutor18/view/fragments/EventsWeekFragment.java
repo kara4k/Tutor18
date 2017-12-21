@@ -2,10 +2,7 @@ package com.kara4k.tutor18.view.fragments;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.kara4k.tutor18.di.DaggerViewComponent;
@@ -42,11 +39,11 @@ public class EventsWeekFragment extends BaseListFragment<WeekEvent> implements E
                 .build().injectEventsWeekFrag(this);
     }
 
-    @NonNull
-    @Override
-    protected RecyclerView.LayoutManager getLayoutManager() {
-        return new GridLayoutManager(getContext(), 2);
-    }
+//    @NonNull
+//    @Override
+//    protected RecyclerView.LayoutManager getLayoutManager() {
+//        return new GridLayoutManager(getContext(), 2);
+//    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

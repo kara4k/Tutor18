@@ -42,4 +42,5 @@
     <string name="message_saved">Saved</string>
     <string name="tab_layout_day">Day</string>
     <string name="tab_layout_week">Week</string>
+    <string name="current_item_view_title">Текущее:</string>
 </resources>
