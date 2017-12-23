@@ -4,7 +4,7 @@ package com.kara4k.tutor18.di.modules;
 import com.kara4k.tutor18.di.scopes.PerActivity;
 import com.kara4k.tutor18.view.EventDetailsIF;
 import com.kara4k.tutor18.view.EventsDayIF;
-import com.kara4k.tutor18.view.EventsIF;
+import com.kara4k.tutor18.view.SchedulerIF;
 import com.kara4k.tutor18.view.EventsWeekIF;
 import com.kara4k.tutor18.view.PersonViewIF;
 import com.kara4k.tutor18.view.PersonsListViewIF;
@@ -42,8 +42,8 @@ public class ViewModule {
 
     @Provides
     @PerActivity
-    EventsIF provideEventsView() {
-        return (EventsIF) mViewIF;
+    SchedulerIF provideEventsView() {
+        return (SchedulerIF) mViewIF;
     }
 
     @Provides

@@ -18,7 +18,6 @@ import com.kara4k.tutor18.model.Event;
 import com.kara4k.tutor18.other.FormatUtils;
 import com.kara4k.tutor18.presenter.EventDetailsPresenter;
 import com.kara4k.tutor18.view.EventDetailsIF;
-import com.kara4k.tutor18.view.custom.EditTextDialog;
 import com.kara4k.tutor18.view.custom.ItemView;
 
 import java.util.Calendar;
@@ -32,6 +31,8 @@ import io.reactivex.subjects.Subject;
 
 public class EventDetails extends BaseActivity implements EventDetailsIF {
 
+    public static final int REQUEST_SUBJECT = 1;
+    public static final int REQUEST_NOTE = 2;
     public static final String EVENT_ID = "event_id";
     public static final String EMPTY = "";
 
@@ -217,42 +218,47 @@ public class EventDetails extends BaseActivity implements EventDetailsIF {
 
     @OnClick(R.id.subject_item_view)
     void onSubjectClicked() {
-        String title = getString(R.string.dialog_subjects_title);
+        String title = getString(R.string.title_subjects);
         String text = mEvent.getSubjects();
-        EditTextDialog.OnOkListener listener = (s) -> {
-            mEvent.setSubjects(s);
-            mEventObservable.onNext(mEvent);
-        };
 
-        new EditTextDialog()
-                .setTitle(title)
-                .setText(text)
-                .setOnOkListener(listener)
-                .show(getSupportFragmentManager(), "subjects");
+        Intent intent = EditTextActivity.newIntent(this, title, text);
+        startActivityForResult(intent, REQUEST_SUBJECT);
     }
 
     @OnClick(R.id.note_item_view)
     void onNoteClicked() {
-        String title = getString(R.string.dialog_note_title);
+        String title = getString(R.string.title_notes);
         String text = mEvent.getNote();
-        EditTextDialog.OnOkListener listener = (s) -> {
-            mEvent.setNote(s);
-            mEventObservable.onNext(mEvent);
-        };
 
-        new EditTextDialog()
-                .setTitle(title)
-                .setText(text)
-                .setOnOkListener(listener)
-                .show(getSupportFragmentManager(), "note");
+        Intent intent = EditTextActivity.newIntent(this, title, text);
+        startActivityForResult(intent, REQUEST_NOTE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            String text = data.getStringExtra(EditTextActivity.TEXT);
+            switch (requestCode) {
+                case REQUEST_SUBJECT:
+                    mEvent.setSubjects(text);
+                    break;
+                case REQUEST_NOTE:
+                    mEvent.setNote(text);
+                    break;
+            }
+            mEventObservable.onNext(mEvent);
+        }
+    }
+
+    @OnClick(R.id.name_item_view)
+    void onPersonClicked() {
+        int mode = PersonActivity.MODE_SHOW;
+        long personId = mEvent.getPersonId();
+        startActivity(PersonActivity.newIntent(this, personId, mode));
     }
 
     @OnClick(R.id.payment_item_view)
     void onPaymentClick(ItemView itemView) {
-        toggleIsPaid();
-    }
-
-    private void toggleIsPaid() {
         mEvent.setIsPaid(!mPaymentItemView.isChecked());
         mEventObservable.onNext(mEvent);
     }

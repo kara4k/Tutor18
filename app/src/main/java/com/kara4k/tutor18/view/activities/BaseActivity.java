@@ -42,6 +42,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    protected void setTitle(String title) {
+        try {
+            getSupportActionBar().setTitle(title);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     protected void hideSoftKeyboard() {
         try {
             if (getCurrentFocus() != null) {

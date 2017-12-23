@@ -28,8 +28,8 @@
     <string name="event_duration">%1$d min</string>
     <string name="price">$ %1$s</string>
     <string name="menu_item_select_date">Select date</string>
-    <string name="dialog_subjects_title">Subjects:</string>
-    <string name="dialog_note_title">Note:</string>
+    <string name="title_subjects">Subjects:</string>
+    <string name="title_notes">Note:</string>
     <string name="array_event_undefined">Undefined</string>
     <string name="array_event_held">Was held</string>
     <string name="array_event_not_held">Was not held</string>
@@ -43,4 +43,9 @@
     <string name="tab_layout_day">Day</string>
     <string name="tab_layout_week">Week</string>
     <string name="current_item_view_title">Текущее:</string>
+    <string name="create_events_btn">Create</string>
+    <string name="delete_events_btn">Delete</string>
+    <string name="dialog_person_title">Person:</string>
+    <string name="dialog_item_all">All</string>
+    <string name="dialog_lessons_title">Lessons:</string>
 </resources>

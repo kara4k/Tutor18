@@ -2,7 +2,9 @@ package com.kara4k.tutor18.presenter;
 
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.LongSparseArray;
+import android.view.View;
 
 import com.kara4k.tutor18.R;
 import com.kara4k.tutor18.model.DaoSession;
@@ -12,10 +14,11 @@ import com.kara4k.tutor18.model.Lesson;
 import com.kara4k.tutor18.model.Person;
 import com.kara4k.tutor18.other.CalendarUtils;
 import com.kara4k.tutor18.other.FormatUtils;
-import com.kara4k.tutor18.view.EventsIF;
+import com.kara4k.tutor18.view.SchedulerIF;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,12 +30,13 @@ import javax.inject.Inject;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class EventsPresenter implements Presenter {
+public class SchedulerPresenter implements Presenter {
 
     @Inject
-    EventsIF mView;
+    SchedulerIF mView;
     @Inject
     Context mContext;
 
@@ -40,10 +44,16 @@ public class EventsPresenter implements Presenter {
     private EventDao mEventDao;
 
     private List<Lesson> mLessons;
-    private LongSparseArray<Person> mPersons;
+    private List<Person> mPersons;
+    private LongSparseArray<Person> mPersonsTable;
+
+    private Person mPerson;
+    private Lesson mLesson;
+
+    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Inject
-    public EventsPresenter(DaoSession daoSession) {
+    public SchedulerPresenter(DaoSession daoSession) {
         mDaoSession = daoSession;
         mEventDao = daoSession.getEventDao();
 
@@ -56,11 +66,11 @@ public class EventsPresenter implements Presenter {
     }
 
     private void initPersonsArray(DaoSession daoSession) {
-        List<Person> persons = daoSession.getPersonDao().queryBuilder().build().list();
-        mPersons = new LongSparseArray<>(persons.size());
-        for (int i = 0; i < persons.size(); i++) {
-            Person person = persons.get(i);
-            mPersons.put(person.getId(), person);
+        mPersons = daoSession.getPersonDao().queryBuilder().build().list();
+        mPersonsTable = new LongSparseArray<>(mPersons.size());
+        for (int i = 0; i < mPersons.size(); i++) {
+            Person person = mPersons.get(i);
+            mPersonsTable.put(person.getId(), person);
         }
     }
 
@@ -99,12 +109,98 @@ public class EventsPresenter implements Presenter {
         long startStamp = startCal.getTimeInMillis();
         long endStamp = CalendarUtils.getDayEnd(endCal);
 
-        List<Event> events = mEventDao.queryBuilder()
-                .where(EventDao.Properties.Id.between(startStamp, endStamp))
-                .build().list();
+        List<Event> events = getEventsToDelete(startStamp, endStamp);
 
         mEventDao.deleteInTx(events);
         return events.size();
+    }
+
+    private List<Event> getEventsToDelete(long startStamp, long endStamp) {
+        List<Event> events;
+
+        if (mPerson != null) {
+            if (mLesson != null) {
+                events = mEventDao.queryBuilder()
+                        .where(EventDao.Properties.Id.between(startStamp, endStamp),
+                                EventDao.Properties.LessonId.eq(mLesson.getId()))
+                        .build().list();
+            } else {
+                events = mEventDao.queryBuilder()
+                        .where(EventDao.Properties.Id.between(startStamp, endStamp),
+                                EventDao.Properties.PersonId.eq(mPerson.getId()))
+                        .build().list();
+            }
+        } else {
+            events = mEventDao.queryBuilder()
+                    .where(EventDao.Properties.Id.between(startStamp, endStamp))
+                    .build().list();
+        }
+        return events;
+    }
+
+    public void onPersonClicked() {
+        CharSequence[] personItems = new CharSequence[mPersonsTable.size() + 1];
+        personItems[0] = mContext.getString(R.string.dialog_item_all);
+        for (int i = 0; i < mPersons.size(); i++) {
+            Person person = mPersons.get(i);
+            personItems[i + 1] = FormatUtils.formatName(person);
+        }
+
+        mView.showPersonsDialog(personItems);
+
+    }
+
+    public void onPersonSelected(int i) {
+        String personSummary;
+        String all = mContext.getString(R.string.dialog_item_all);
+        if (i == 0) {
+            mPerson = null;
+            personSummary = all;
+            mView.setLessonVisibility(View.GONE);
+        } else {
+            mPerson = mPersons.get(i - 1);
+            personSummary = FormatUtils.formatName(mPerson);
+            mView.setLessonVisibility(View.VISIBLE);
+            mView.setLessonSummary(all);
+        }
+
+        mLesson = null;
+        mView.setPersonSummary(personSummary);
+    }
+
+    public void onLessonClicked() {
+        ArrayList<CharSequence> lessonNames = new ArrayList<>();
+        lessonNames.add(mContext.getString(R.string.dialog_item_all));
+        List<Lesson> lessons = new ArrayList<>();
+        String[] weekdays = FormatUtils.getSortedDays();
+
+        if (mPerson == null) return;
+
+        for (int i = 0; i < mLessons.size(); i++) {
+            Lesson lesson = mLessons.get(i);
+            if (lesson.getPersonId().equals(mPerson.getId())) {
+                lessons.add(lesson);
+
+                String dayName = weekdays[lesson.getDayOfWeek()];
+                String time = FormatUtils.formatTime(lesson);
+                lessonNames.add(dayName + ", " + time);
+            }
+        }
+
+        CharSequence[] lessonItems = new CharSequence[lessonNames.size()];
+        lessonItems = lessonNames.toArray(lessonItems);
+        mView.showLessonsDialog(lessonItems, lessons);
+    }
+
+    public void onLessonSelected(int i, CharSequence[] lessonItems, List<Lesson> lessons) {
+        CharSequence summary = lessonItems[i];
+        if (i == 0) {
+            mLesson = null;
+        } else {
+            mLesson = lessons.get(i - 1);
+        }
+
+        mView.setLessonSummary(summary.toString());
     }
 
     private List<Event> createEvents(Calendar startCal, Calendar endCal) {
@@ -117,19 +213,31 @@ public class EventsPresenter implements Presenter {
         if (startStamp > endStamp) {
             throw new IllegalStateException(mContext.getString(R.string.illegal_days_order));
         } else {
+            List<Lesson> lessons = getCorrespondLessons();
+
             while (startCal.getTimeInMillis() <= endCal.getTimeInMillis()) {
-                createDayEvents(startCal, events);
+                createDayEvents(startCal, events, lessons);
             }
         }
         startCal.setTimeInMillis(startStamp);
         return events;
     }
 
-    private void createDayEvents(Calendar startCal, List<Event> events) {
-        int dayDbValue = FormatUtils.getDayDbValue(startCal.get(Calendar.DAY_OF_WEEK));
+    @NonNull
+    private List<Lesson> getCorrespondLessons() {
+        List<Lesson> lessons = new ArrayList<>();
         for (int i = 0; i < mLessons.size(); i++) {
             Lesson lesson = mLessons.get(i);
+            if (isNotEquals(lesson)) continue;
+            lessons.add(lesson);
+        }
+        return lessons;
+    }
 
+    private void createDayEvents(Calendar startCal, List<Event> events, List<Lesson> lessons) {
+        int dayDbValue = FormatUtils.getDayDbValue(startCal.get(Calendar.DAY_OF_WEEK));
+        for (int i = 0; i < lessons.size(); i++) {
+            Lesson lesson = lessons.get(i);
             if (lesson.getDayOfWeek() == dayDbValue) {
                 Event event = new Event();
                 event.setId(calcEventId(startCal, lesson));
@@ -143,13 +251,26 @@ public class EventsPresenter implements Presenter {
         startCal.add(Calendar.DAY_OF_MONTH, 1);
     }
 
+    private boolean isNotEquals(Lesson lesson) {
+        if (mPerson != null) {
+            if (!lesson.getPersonId().equals(mPerson.getId())) {
+                return true;
+            } else {
+                if (mLesson != null && !mLesson.getId().equals(lesson.getId())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private void setPayment(Calendar startCal, Lesson lesson, Event event) {
         int lastDay = startCal.getActualMaximum(Calendar.DAY_OF_MONTH);
         int lastMonthDayValue = getLastMonthDayValue(startCal, lastDay);
         int lastSevenDays = lastDay - 7;
 
         if (startCal.get(Calendar.DAY_OF_MONTH) >= lastSevenDays) {
-            Person person = mPersons.get(lesson.getPersonId());
+            Person person = mPersonsTable.get(lesson.getPersonId());
             List<Lesson> lessons = person.getLessons();
 
             NavigableSet<Integer> daySet = new TreeSet<>();
@@ -233,6 +354,8 @@ public class EventsPresenter implements Presenter {
 
     @Override
     public void onDestroy() {
-
+        mCompositeDisposable.dispose();
     }
+
+
 }

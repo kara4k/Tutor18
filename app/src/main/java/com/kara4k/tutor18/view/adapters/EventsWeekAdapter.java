@@ -50,7 +50,7 @@ public class EventsWeekAdapter extends Adapter<WeekEvent, EventsWeekAdapter.DayH
         @BindView(R.id.payment_layout)
         LinearLayout mPaymentLayout;
 
-        public DayHolder(View itemView) {
+        DayHolder(View itemView) {
             super(itemView);
         }
 
@@ -105,7 +105,7 @@ public class EventsWeekAdapter extends Adapter<WeekEvent, EventsWeekAdapter.DayH
             mPriceTextView.setText(dayPrice);
         }
 
-        protected BigDecimal calculatePrice(BigDecimal total, Event event) {
+        BigDecimal calculatePrice(BigDecimal total, Event event) {
             if (event.getState() == Event.HELD) {
                 BigDecimal price = new BigDecimal(event.getLesson().getPrice());
                 total = total.add(price);
@@ -113,21 +113,21 @@ public class EventsWeekAdapter extends Adapter<WeekEvent, EventsWeekAdapter.DayH
             return total;
         }
 
-        protected void addEventState(Event event) {
+        void addEventState(Event event) {
             int stateIconRes = FormatUtils.getStateIconRes(event);
             ImageView imageView = new ImageView(mContext);
             imageView.setImageResource(stateIconRes);
             mStateLayout.addView(imageView);
         }
 
-        protected void setDate(WeekEvent weekEvent) {
+        void setDate(WeekEvent weekEvent) {
             String[] months = DateFormatSymbols.getInstance().getMonths();
             String monthName = months[weekEvent.getMonth()];
             String date = weekEvent.getDayOfMonth() + " " + monthName;
             mDateTextView.setText(date);
         }
 
-        protected void setDay(WeekEvent weekEvent) {
+        void setDay(WeekEvent weekEvent) {
             String[] weekdays = FormatUtils.getSortedDays();
             int index = FormatUtils.getDayDbValue(weekEvent.getDayOfWeek());
             mDayTextView.setText(weekdays[index]);

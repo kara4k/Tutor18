@@ -29,10 +29,13 @@
             android:name=".view.activities.LessonActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"/>
         <activity
-            android:name=".view.activities.EventsActivity"
+            android:name=".view.activities.SchedulerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"/>
         <activity
             android:name=".view.activities.EventDetails"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity
+            android:name=".view.activities.EditTextActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"/>
     </application>
 

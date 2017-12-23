@@ -13,21 +13,26 @@
             android:id="@+id/nav_persons"
             android:icon="@drawable/ic_person_black_24dp"
             android:title="Persons"/>
+
+    </group>
+
+    <group android:checkableBehavior="none"
+           android:id="@+id/scheduler">
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_scheduler"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow"/>
+            android:title="Scheduler"/>
     </group>
 
     <group android:id="@+id/addition">
         <item
-            android:id="@+id/nav_share"
-            android:icon="@drawable/ic_menu_share"
-            android:title="Share"/>
-        <item
-            android:id="@+id/nav_send"
-            android:icon="@drawable/ic_menu_send"
-            android:title="Send"/>
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_help_outline_black_24dp"
+            android:title="About"/>
+        <!--<item-->
+            <!--android:id="@+id/nav_send"-->
+            <!--android:icon="@drawable/ic_menu_send"-->
+            <!--android:title="Send"/>-->
     </group>
 
 </menu>

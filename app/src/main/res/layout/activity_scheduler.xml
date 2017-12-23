@@ -3,6 +3,7 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
             android:background="@drawable/background"
     >
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -28,14 +29,30 @@
         app:icon_is_visible="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <View style="@style/Divider"/>
+    <com.kara4k.tutor18.view.custom.ItemView
+        app:title_text="Person:"
+        android:id="@+id/person_item_view"
+        app:icon_is_visible="true"
+        app:icon_src="@drawable/ic_person_black_24dp"
+        app:summary_text="All"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.kara4k.tutor18.view.custom.ItemView
+        android:layout_width="match_parent"
+        android:id="@+id/lesson_item_view"
+        app:title_text="Lesson:"
+        app:summary_text="All"
+        app:icon_is_visible="true"
+        app:icon_src="@drawable/ic_event_black_24dp"
+        android:layout_height="wrap_content"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:padding="@dimen/dimen_default"
         android:layout_height="wrap_content">
         <Button
             android:id="@+id/create_date_events_button"
-            android:text="Create"
-            android:background="@android:color/transparent"
+            android:text="@string/create_events_btn"
             android:layout_weight="1"
             android:layout_marginRight="@dimen/text_views_margin"
             android:layout_width="wrap_content"
@@ -45,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_marginLeft="@dimen/text_views_margin"
             android:layout_weight="1"
-            android:text="Delete"
+            android:text="@string/delete_events_btn"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 </LinearLayout>

@@ -75,15 +75,17 @@ public class PersonPresenter implements Presenter, CompletableObserver {
         Completable completable = Completable.fromAction(() -> {
             mPersonDao.delete(person);
             mLessonDao.deleteInTx(queryLessons(person.getId()));
-            mEventDao.deleteInTx(queryEvents(person.getId()));
+            mEventDao.deleteInTx(queryEventsByPerson(person.getId()));
         });
 
         subscribe(completable, () -> mView.closeView());
     }
 
     public void onDeleteLesson(long id) {
-        Completable completable = Completable.fromAction(()
-                -> mLessonDao.deleteByKey(id));
+        Completable completable = Completable.fromAction(() ->{
+            mLessonDao.deleteByKey(id);
+            mEventDao.deleteInTx(queryEventsByLesson(id));
+        });
 
         subscribe(completable);
     }
@@ -112,9 +114,15 @@ public class PersonPresenter implements Presenter, CompletableObserver {
                 .build().list();
     }
 
-    private List<Event> queryEvents(long personId) {
+    private List<Event> queryEventsByPerson(long personId) {
         return mEventDao.queryBuilder()
-                .where(LessonDao.Properties.PersonId.eq(personId))
+                .where(EventDao.Properties.PersonId.eq(personId))
+                .build().list();
+    }
+
+    private List<Event> queryEventsByLesson(long lessonId) {
+        return mEventDao.queryBuilder()
+                .where(EventDao.Properties.LessonId.eq(lessonId))
                 .build().list();
     }
 
@@ -124,7 +132,8 @@ public class PersonPresenter implements Presenter, CompletableObserver {
     }
 
     @Override
-    public void onComplete() {}
+    public void onComplete() {
+    }
 
     @Override
     public void onError(Throwable e) {

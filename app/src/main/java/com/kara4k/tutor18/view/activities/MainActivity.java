@@ -29,8 +29,8 @@ public class MainActivity extends DrawerActivity {
             case R.id.nav_persons:
                 setFragment(PersonsListFragment.newInstance());
                 break;
-            case R.id.nav_send:  // TODO: 08.12.2017
-                startActivity(EventsActivity.newIntent(this));
+            case R.id.nav_scheduler:
+                startActivity(SchedulerActivity.newIntent(this));
                 break;
         }
     }

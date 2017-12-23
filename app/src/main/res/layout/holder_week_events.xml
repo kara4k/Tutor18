@@ -3,10 +3,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
-                android:paddingBottom="@dimen/dimen_default"
-                android:paddingLeft="@dimen/dimen_double"
-                android:paddingRight="@dimen/dimen_double"
+                android:paddingLeft="@dimen/dimen_default"
+                android:paddingRight="@dimen/dimen_default"
                 android:paddingTop="@dimen/dimen_default"
+                android:paddingBottom="@dimen/dimen_default"
     >
 
 
@@ -60,5 +60,4 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-
 </RelativeLayout>
