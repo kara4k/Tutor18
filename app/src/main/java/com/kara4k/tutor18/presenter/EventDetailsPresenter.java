@@ -96,7 +96,6 @@ public class EventDetailsPresenter implements Presenter {
     }
 
     private void updateEventDb(Event event) {
-        System.out.println(event.getPrice());
         if (event.getRescheduledToId() != null) {
             Event rescheduledEvent = createRescheduledEvent(event);
             mEventDao.insertOrReplace(rescheduledEvent);

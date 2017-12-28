@@ -3,7 +3,6 @@ package com.kara4k.tutor18.view.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.kara4k.tutor18.di.DaggerViewComponent;
@@ -41,8 +40,8 @@ public class EventsDayFragment extends BaseListFragment<Event> implements Events
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void onViewReady() {
+        super.onViewReady();
         mFab.setVisibility(View.GONE);
         if (getArguments()!= null) {
             long timeStamp = getArguments().getLong(TIMESTAMP);

@@ -4,6 +4,7 @@ import android.view.MenuItem;
 
 import com.kara4k.tutor18.R;
 import com.kara4k.tutor18.view.fragments.PersonsListFragment;
+import com.kara4k.tutor18.view.fragments.StatsFragment;
 import com.kara4k.tutor18.view.fragments.ViewPagerFragment;
 
 public class MainActivity extends DrawerActivity {
@@ -28,6 +29,9 @@ public class MainActivity extends DrawerActivity {
                 break;
             case R.id.nav_persons:
                 setFragment(PersonsListFragment.newInstance());
+                break;
+            case R.id.nav_stats:
+                setFragment(StatsFragment.newInstance());
                 break;
             case R.id.nav_scheduler:
                 startActivity(SchedulerActivity.newIntent(this));

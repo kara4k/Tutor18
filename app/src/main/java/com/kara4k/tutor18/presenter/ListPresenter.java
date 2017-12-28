@@ -45,7 +45,6 @@ public abstract class ListPresenter<T, V extends ListViewIF<T>>
 
     @Override
     public void onSuccess(List<T> list) {
-        Log.e("ListPresenter", "onSuccess: " + list.size());
         mListView.setItems(list);
     }
 

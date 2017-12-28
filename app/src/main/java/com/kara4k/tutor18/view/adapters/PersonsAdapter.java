@@ -51,7 +51,7 @@ public class PersonsAdapter extends Adapter<Person, PersonsAdapter.PersonHolder>
             mNameTextView.setText(person.getName());
             mGradeTextView.setText("#".concat(person.getGrade()));
             mNoteTextView.setText(person.getNote());
-            mLessonsTextView.setText(person.getLessons().size());
+            mLessonsTextView.setText(String.valueOf(person.getLessons().size()));
         }
 
         @Override

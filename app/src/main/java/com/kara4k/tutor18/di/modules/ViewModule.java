@@ -8,6 +8,7 @@ import com.kara4k.tutor18.view.SchedulerIF;
 import com.kara4k.tutor18.view.EventsWeekIF;
 import com.kara4k.tutor18.view.PersonViewIF;
 import com.kara4k.tutor18.view.PersonsListViewIF;
+import com.kara4k.tutor18.view.StatsIF;
 import com.kara4k.tutor18.view.ViewIF;
 
 import dagger.Module;
@@ -56,5 +57,11 @@ public class ViewModule {
     @PerActivity
     EventsWeekIF provideEventsWeekView() {
         return (EventsWeekIF) mViewIF;
+    }
+
+    @Provides
+    @PerActivity
+    StatsIF provideStatsView() {
+        return (StatsIF) mViewIF;
     }
 }

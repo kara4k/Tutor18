@@ -15,23 +15,21 @@
               android:layout_height="wrap_content">
     <com.kara4k.tutor18.view.custom.ItemView
         android:id="@+id/start_date_item_view"
-        app:title_text="Start:"
-        app:summary_text="Tap to select"
+        app:title_text="@string/item_view_start"
         app:icon_src="@drawable/ic_event_black_24dp"
         app:icon_is_visible="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <com.kara4k.tutor18.view.custom.ItemView
-        app:title_text="End:"
+        app:title_text="@string/item_view_end"
         android:id="@+id/end_date_item_view"
-        app:summary_text="Tap to select"
         app:icon_src="@drawable/ic_event_black_24dp"
         app:icon_is_visible="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <View style="@style/Divider"/>
     <com.kara4k.tutor18.view.custom.ItemView
-        app:title_text="Person:"
+        app:title_text="@string/item_view_person"
         android:id="@+id/person_item_view"
         app:icon_is_visible="true"
         app:icon_src="@drawable/ic_person_black_24dp"
@@ -41,7 +39,7 @@
     <com.kara4k.tutor18.view.custom.ItemView
         android:layout_width="match_parent"
         android:id="@+id/lesson_item_view"
-        app:title_text="Lesson:"
+        app:title_text="@string/item_view_lesson"
         app:summary_text="All"
         app:icon_is_visible="true"
         app:icon_src="@drawable/ic_event_black_24dp"

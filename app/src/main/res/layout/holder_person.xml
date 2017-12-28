@@ -24,7 +24,6 @@
         android:layout_marginTop="@dimen/text_views_margin"
         android:layout_toLeftOf="@+id/grade_text_view"
         android:layout_toRightOf="@+id/icon_image_view"
-        android:text="Путин"
         android:textColor="@android:color/black"
         android:textStyle="bold"/>
 
@@ -35,7 +34,6 @@
         android:layout_below="@+id/first_name_text_view"
         android:layout_marginRight="@dimen/dimen_default"
         android:layout_toRightOf="@+id/icon_image_view"
-        android:text="Владимир"
         android:textColor="@android:color/black"
         android:textStyle="bold"
         />
@@ -49,7 +47,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/dimen_default"
         android:layout_marginTop="@dimen/text_views_margin"
-        android:text="#3"/>
+        />
 
     <TextView
         android:id="@+id/note_text_view"
@@ -58,7 +56,6 @@
         android:layout_below="@+id/name_text_view"
         android:layout_toLeftOf="@id/lessons_text_view"
         android:layout_toRightOf="@+id/icon_image_view"
-        android:text="+375 33 2892821"
         android:textColor="@android:color/black"
         android:paddingBottom="@dimen/dimen_default"
         android:textSize="12sp"/>
@@ -75,6 +72,5 @@
         android:layout_below="@id/grade_text_view"
         android:layout_marginBottom="@dimen/text_views_margin"
         android:layout_marginRight="@dimen/dimen_default"
-        android:text="don@gmail.com"
         />
 </RelativeLayout>

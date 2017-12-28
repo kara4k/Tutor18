@@ -18,10 +18,11 @@
             android:id="@+id/name_item_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             app:icon_is_visible="true"
-            app:icon_src="@drawable/ic_person_black_24dp"
-            app:summary_text="Владимир"
-            app:title_text="Путин"/>
+            app:icon_src="@drawable/ic_person_black_24dp"/>
 
         <com.kara4k.tutor18.view.custom.ItemView
             android:id="@+id/grade_item_view"
@@ -29,7 +30,6 @@
             android:layout_height="wrap_content"
             app:icon_is_visible="true"
             app:icon_src="@drawable/ic_account_balance_black_24dp"
-            app:summary_text="11"
             app:title_text="@string/item_view_grade"/>
 
         <com.kara4k.tutor18.view.custom.ItemView
@@ -38,7 +38,6 @@
             android:layout_height="wrap_content"
             app:icon_is_visible="true"
             app:icon_src="@drawable/ic_call_black_24dp"
-            app:summary_text="+375 33 3718236"
             app:title_text="@string/item_view_phone"/>
 
         <com.kara4k.tutor18.view.custom.ItemView
@@ -47,7 +46,6 @@
             android:layout_height="wrap_content"
             app:icon_is_visible="true"
             app:icon_src="@drawable/ic_email_black_24dp"
-            app:summary_text="dondigidon@mail.ru"
             app:title_text="@string/item_view_email"/>
 
         <com.kara4k.tutor18.view.custom.ItemView
@@ -56,7 +54,6 @@
             android:layout_height="wrap_content"
             app:icon_is_visible="true"
             app:icon_src="@drawable/ic_note_black_24dp"
-            app:summary_text="Серьезный"
             app:title_text="@string/item_view_note"/>
 
         <View

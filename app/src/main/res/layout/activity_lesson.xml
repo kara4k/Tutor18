@@ -30,7 +30,7 @@
                 android:layout_marginTop="@dimen/dimen_default"
                 app:icon_src="@drawable/ic_today_black_24dp"
                 app:icon_is_visible="true"
-                app:title_text="Day of week:"/>
+                app:title_text="@string/item_view_weekday"/>
 
             <com.kara4k.tutor18.view.custom.ItemView
                 android:id="@+id/start_item_view"
@@ -39,7 +39,7 @@
                 android:layout_marginTop="@dimen/dimen_default"
                 app:icon_src="@drawable/ic_access_time_black_24dp"
                 app:icon_is_visible="true"
-                app:title_text="Start:"/>
+                app:title_text="@string/item_view_start"/>
 
             <com.kara4k.tutor18.view.custom.ItemView
                 android:id="@+id/duration_item_view"
@@ -48,7 +48,7 @@
                 android:layout_marginTop="@dimen/dimen_default"
                 app:icon_src="@drawable/ic_timer_black_24dp"
                 app:icon_is_visible="true"
-                app:title_text="Duration:"/>
+                app:title_text="@string/item_view_duration"/>
 
             <com.kara4k.tutor18.view.custom.ItemView
                 android:id="@+id/price_item_view"
@@ -57,7 +57,7 @@
                 android:layout_marginTop="@dimen/dimen_default"
                 app:icon_src="@drawable/ic_attach_money_black_24dp"
                 app:icon_is_visible="true"
-                app:title_text="Price:"/>
+                app:title_text="@string/item_view_price"/>
 
         </LinearLayout>
     </ScrollView>

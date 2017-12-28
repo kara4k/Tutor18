@@ -14,7 +14,6 @@
         android:id="@+id/day_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="понедельник"
         android:textColor="@android:color/black"
         android:textStyle="bold"/>
 
@@ -23,7 +22,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/day_text_view"
-        android:text="12 января"
         android:textColor="@android:color/black"/>
 
     <LinearLayout
@@ -43,7 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/day_text_view"
         android:layout_alignParentRight="true"
-        android:text="$ 12.50"
         android:textColor="@android:color/black"/>
 
     <LinearLayout

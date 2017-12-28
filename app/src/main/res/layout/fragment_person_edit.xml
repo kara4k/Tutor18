@@ -21,7 +21,7 @@
             android:layout_marginLeft="@dimen/dimen_default"
             android:layout_marginRight="@dimen/dimen_default"
             android:layout_marginTop="@dimen/dimen_default"
-            android:text="First Name:"
+            android:text="@string/first_name_tv"
             android:textColor="@android:color/black"/>
 
         <EditText
@@ -39,7 +39,7 @@
             android:layout_marginLeft="@dimen/dimen_default"
             android:layout_marginRight="@dimen/dimen_default"
             android:layout_marginTop="@dimen/dimen_default"
-            android:text="Name:"
+            android:text="@string/name_tv"
             android:textColor="@android:color/black"/>
 
         <EditText
@@ -57,7 +57,7 @@
             android:layout_marginLeft="@dimen/dimen_default"
             android:layout_marginRight="@dimen/dimen_default"
             android:layout_marginTop="@dimen/dimen_default"
-            android:text="Grade:"
+            android:text="@string/item_view_grade"
             android:textColor="@android:color/black"/>
 
         <EditText
@@ -75,7 +75,7 @@
             android:layout_marginLeft="@dimen/dimen_default"
             android:layout_marginRight="@dimen/dimen_default"
             android:layout_marginTop="@dimen/dimen_default"
-            android:text="Phone:"
+            android:text="@string/item_view_phone"
             android:textColor="@android:color/black"/>
 
         <EditText
@@ -92,7 +92,7 @@
             android:layout_marginLeft="@dimen/dimen_default"
             android:layout_marginRight="@dimen/dimen_default"
             android:layout_marginTop="@dimen/dimen_default"
-            android:text="Email:"
+            android:text="@string/item_view_email"
             android:textColor="@android:color/black"/>
 
         <EditText
@@ -110,7 +110,7 @@
             android:layout_marginLeft="@dimen/dimen_default"
             android:layout_marginRight="@dimen/dimen_default"
             android:layout_marginTop="@dimen/dimen_default"
-            android:text="Note:"
+            android:text="@string/item_view_note"
             android:textColor="@android:color/black"/>
 
         <EditText

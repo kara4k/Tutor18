@@ -8,6 +8,7 @@ import com.kara4k.tutor18.view.activities.PersonActivity;
 import com.kara4k.tutor18.view.fragments.EventsDayFragment;
 import com.kara4k.tutor18.view.fragments.EventsWeekFragment;
 import com.kara4k.tutor18.view.fragments.PersonsListFragment;
+import com.kara4k.tutor18.view.fragments.StatsFragment;
 
 import dagger.Component;
 
@@ -26,4 +27,6 @@ public interface ViewComponent {
     void injectEventDetailsActivity(EventDetails activity);
 
     void injectEventsWeekFrag(EventsWeekFragment fragment);
+
+    void injectStatsFrag(StatsFragment fragment);
 }

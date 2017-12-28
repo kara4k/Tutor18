@@ -40,6 +40,11 @@ public class ViewPagerFragment extends BaseFragment {
     }
 
     @Override
+    public Calendar getCalendar() {
+        return mCalendar;
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (getArguments() != null) {
@@ -66,24 +71,6 @@ public class ViewPagerFragment extends BaseFragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void showDatePicker(DatePickerDialog.OnDateSetListener listener) {
-        new DatePickerDialog(getContext(), R.style.PickerStyle, listener,
-                getYear(), getMonth(), getDay())
-                .show();
-    }
-
-    private int getYear() {
-        return mCalendar.get(Calendar.YEAR);
-    }
-
-    private int getMonth() {
-        return mCalendar.get(Calendar.MONTH);
-    }
-
-    private int getDay() {
-        return mCalendar.get(Calendar.DAY_OF_MONTH);
     }
 
     public static ViewPagerFragment newInstance() {
